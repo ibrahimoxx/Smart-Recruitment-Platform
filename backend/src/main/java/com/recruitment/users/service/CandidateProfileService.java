@@ -65,7 +65,8 @@ public class CandidateProfileService {
         CandidateProfile profile = candidateProfileRepository.findByUserId(user.getId())
                 .orElseGet(() -> candidateProfileRepository.save(CandidateProfile.create(user)));
 
-        String originalFilename = file.getOriginalFilename() != null ? file.getOriginalFilename() : "resume.pdf";
+        String rawFilename = file.getOriginalFilename() != null ? file.getOriginalFilename() : "resume.pdf";
+        String originalFilename = java.nio.file.Paths.get(rawFilename).getFileName().toString();
         String objectKey = "cv/" + user.getId() + "/" + originalFilename;
         try {
             storageService.uploadFile(

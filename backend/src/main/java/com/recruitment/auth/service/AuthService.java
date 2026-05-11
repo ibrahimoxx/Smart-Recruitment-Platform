@@ -33,6 +33,9 @@ public class AuthService {
 
     @Transactional
     public AuthResponse register(RegisterRequest request) {
+        if (request.role() == com.recruitment.common.enums.Role.ADMIN) {
+            throw new AppException(HttpStatus.FORBIDDEN, "Cannot self-register as ADMIN");
+        }
         if (userRepository.existsByEmail(request.email())) {
             throw new AppException(HttpStatus.CONFLICT, "Email already registered");
         }
