@@ -35,6 +35,18 @@ public class MinioStorageService implements StorageService {
     }
 
     @Override
+    public InputStream downloadFile(String bucket, String objectKey) {
+        try {
+            return minioClient.getObject(GetObjectArgs.builder()
+                    .bucket(bucket)
+                    .object(objectKey)
+                    .build());
+        } catch (Exception e) {
+            throw new AppException(HttpStatus.INTERNAL_SERVER_ERROR, "Storage download error: " + e.getMessage());
+        }
+    }
+
+    @Override
     public void deleteFile(String bucket, String objectKey) {
         try {
             minioClient.removeObject(RemoveObjectArgs.builder()
