@@ -1,5 +1,7 @@
 package com.recruitment.jobs.controller;
 
+import com.recruitment.applications.dto.ApplicationResponse;
+import com.recruitment.applications.service.ApplicationService;
 import com.recruitment.auth.entity.User;
 import com.recruitment.common.ApiResponse;
 import com.recruitment.common.PagedResponse;
@@ -36,6 +38,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class JobOfferController {
 
     private final JobOfferService jobOfferService;
+    private final ApplicationService applicationService;
 
     @PostMapping
     @PreAuthorize("hasAnyRole('RECRUITER', 'ADMIN')")
@@ -98,6 +101,16 @@ public class JobOfferController {
             @Valid @RequestBody JobOfferStatusRequest request) {
         return ResponseEntity.ok(ApiResponse.success(
                 jobOfferService.changeStatus(id, currentUser(), request.status())
+        ));
+    }
+
+    @GetMapping("/{jobId}/applications")
+    @PreAuthorize("hasAnyRole('RECRUITER', 'ADMIN')")
+    public ResponseEntity<ApiResponse<PagedResponse<ApplicationResponse>>> listApplicationsForJob(
+            @PathVariable UUID jobId,
+            @PageableDefault(size = 20) Pageable pageable) {
+        return ResponseEntity.ok(ApiResponse.success(
+                applicationService.listByJobOffer(currentUser(), jobId, pageable)
         ));
     }
 
