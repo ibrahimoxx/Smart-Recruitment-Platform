@@ -1,13 +1,14 @@
-package com.example.backend;
+package com.recruitment;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
-class BackendApplicationTests {
+@ActiveProfiles("test")
+class RecruitmentApplicationTests {
 
     @Test
     void contextLoads() {
     }
-
 }
