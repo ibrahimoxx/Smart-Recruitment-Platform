@@ -1,0 +1,95 @@
+# ===== SECRETS & ENVIRONMENT =====
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.p12
+*.pfx
+application-secrets.properties
+application-local.properties
+
+# ===== AI & CLAUDE ARTIFACTS =====
+CLAUDE.md
+projet.md
+.claude/
+tasks/
+skills/
+.cursorrules
+.aider*
+*.ai.md
+generated/
+ai-output/
+ai_output/
+scripts/generated/
+graph.html
+
+# ===== JAVA / MAVEN =====
+target/
+!**/src/main/**/target/
+!**/src/test/**/target/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+*.zip
+*.tar.gz
+*.rar
+hs_err_pid*
+replay_pid*
+.mvn/wrapper/maven-wrapper.jar
+
+# ===== SPRING TOOL SUITE =====
+.apt_generated
+.factorypath
+.springBeans
+.sts4-cache
+
+# ===== NETBEANS =====
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# ===== SPRING BOOT =====
+spring-shell.log
+
+# ===== IDE =====
+.idea/
+*.iml
+*.iws
+.project
+.classpath
+.settings/
+.sts4-cache/
+.vscode/settings.json
+*.swp
+*.swo
+*~
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ===== LOGS =====
+*.log
+logs/
+npm-debug.log*
+
+# ===== NODE (frontend, if added later) =====
+node_modules/
+dist/
+.npm
+.pnpm-store/
+
+# ===== DOCKER =====
+.docker/
+
+# ===== MISC =====
+*.tmp
+*.bak
+*.orig
