@@ -88,8 +88,7 @@ public class JobOfferController {
     @PreAuthorize("hasAnyRole('RECRUITER', 'ADMIN')")
     public ResponseEntity<ApiResponse<Void>> deleteJobOffer(@PathVariable UUID id) {
         jobOfferService.deleteJobOffer(id, currentUser());
-        return ResponseEntity.status(HttpStatus.NO_CONTENT)
-                .body(ApiResponse.success("Job offer deleted", null));
+        return ResponseEntity.ok(ApiResponse.success("Job offer deleted", null));
     }
 
     @PatchMapping("/{id}/status")
