@@ -285,3 +285,8 @@ code, pre, kbd {
 .page-enter {
   animation: fade-in-up 0.3s ease-out;
 }
+
+/* ─── Ripple ─── */
+@keyframes ripple-expand {
+  to { transform: scale(4); opacity: 0; }
+}
