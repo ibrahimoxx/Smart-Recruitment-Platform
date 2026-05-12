@@ -40,7 +40,24 @@ public class OllamaClient {
         if (response == null || response.message() == null) {
             throw new AppException(HttpStatus.BAD_GATEWAY, "Empty response from Ollama");
         }
-        return response.message().content();
+        return extractJson(response.message().content());
+    }
+
+    private String extractJson(String text) {
+        // Strip markdown code fences (```json ... ``` or ``` ... ```)
+        String cleaned = text.replaceAll("(?s)```(?:json)?\\s*", "").trim();
+        // Find first JSON object or array
+        int objStart = cleaned.indexOf('{');
+        int arrStart = cleaned.indexOf('[');
+        int start;
+        char closeChar;
+        if (objStart < 0 && arrStart < 0) return cleaned;
+        if (objStart < 0) { start = arrStart; closeChar = ']'; }
+        else if (arrStart < 0) { start = objStart; closeChar = '}'; }
+        else if (objStart < arrStart) { start = objStart; closeChar = '}'; }
+        else { start = arrStart; closeChar = ']'; }
+        int end = cleaned.lastIndexOf(closeChar);
+        return (end > start) ? cleaned.substring(start, end + 1) : cleaned;
     }
 
     record OllamaRequest(String model, List<Message> messages, boolean stream) {

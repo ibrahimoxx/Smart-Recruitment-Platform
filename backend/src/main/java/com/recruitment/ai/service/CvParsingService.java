@@ -33,16 +33,18 @@ public class CvParsingService {
 
     @EventListener
     @Async("aiAsyncExecutor")
-    @Transactional
     public void onCvUploaded(CvUploadedEvent event) {
+        log.info("CV parsing triggered: candidate={} key={}", event.candidateProfileId(), event.objectKey());
         try {
             CvParsedData existing = cvParsedDataRepository
                     .findByCandidateIdAndSourceObjectKey(event.candidateProfileId(), event.objectKey())
                     .orElse(null);
 
             String rawText = extractPdfText(minioProperties.getBucketCv(), event.objectKey());
+            log.info("PDF text extracted: {} chars for candidate {}", rawText.length(), event.candidateProfileId());
             if (rawText.isBlank()) {
-                log.warn("Empty CV text for candidate {}, skipping parse", event.candidateProfileId());
+                log.warn("PDF has no text layer — candidate={} key={} — upload a text-based PDF, not a scanned image",
+                        event.candidateProfileId(), event.objectKey());
                 return;
             }
 
@@ -62,10 +64,15 @@ public class CvParsingService {
                     node.path("education").toString()
             );
             cvParsedDataRepository.save(data);
-            log.info("CV parsed for candidate {}", event.candidateProfileId());
+            log.info("CV parsing complete for candidate {}", event.candidateProfileId());
         } catch (Exception e) {
-            log.error("CV parsing failed for candidate {}: {}", event.candidateProfileId(), e.getMessage(), e);
+            log.error("CV parsing failed for candidate={} key={}: {}",
+                    event.candidateProfileId(), event.objectKey(), e.getMessage(), e);
         }
+    }
+
+    public String extractTextFromCv(String objectKey) throws Exception {
+        return extractPdfText(minioProperties.getBucketCv(), objectKey);
     }
 
     private String extractPdfText(String bucket, String objectKey) throws Exception {
