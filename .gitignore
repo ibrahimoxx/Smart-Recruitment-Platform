@@ -8,6 +8,7 @@
 *.pfx
 application-secrets.properties
 application-local.properties
+application-dev.properties
 
 # ===== AI & CLAUDE ARTIFACTS =====
 CLAUDE.md
