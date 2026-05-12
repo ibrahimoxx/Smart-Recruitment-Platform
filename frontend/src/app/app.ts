@@ -1,21 +1,26 @@
-import { Component, OnInit, Renderer2, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { NgxSonnerToaster } from 'ngx-sonner';
+import { ThemeService } from './shared/ui/theme.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, NgxSonnerToaster],
   template: `
     <a class="skip-to-content" href="#main-content">Skip to content</a>
-    <main id="main-content">
-      <router-outlet />
-    </main>
+    <router-outlet />
+    <ngx-sonner-toaster
+      position="top-right"
+      [richColors]="true"
+      [closeButton]="true"
+      [duration]="4000"
+    />
   `,
-  styles: [],
 })
 export class App implements OnInit {
-  private renderer = inject(Renderer2);
+  private theme = inject(ThemeService);
 
   ngOnInit(): void {
-    this.renderer.addClass(document.documentElement, 'dark');
+    /* ThemeService constructor handles class on documentElement */
   }
 }
