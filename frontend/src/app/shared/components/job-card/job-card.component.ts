@@ -9,7 +9,7 @@ import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
 @Component({
   selector: 'app-job-card',
   standalone: true,
-  imports: [CommonModule, RouterLink, TiltCardDirective, StatusBadgeComponent, TimeAgoPipe],
+  imports: [CommonModule, TiltCardDirective, StatusBadgeComponent, TimeAgoPipe],
   template: `
     <article
       appTiltCard

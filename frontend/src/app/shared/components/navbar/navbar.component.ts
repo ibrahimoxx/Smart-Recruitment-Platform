@@ -58,7 +58,7 @@ import { ThemeService } from '../../ui/theme.service';
           <button
             type="button"
             (click)="theme.toggle()"
-            class="p-2 rounded-xl text-white/50 hover:text-white hover:bg-white/8 transition-all"
+            class="p-2 rounded-xl text-white/50 hover:text-white hover:bg-white/[0.08] transition-all"
             [attr.aria-label]="theme.isDark() ? 'Switch to light mode' : 'Switch to dark mode'"
           >
             @if (theme.isDark()) {
@@ -139,7 +139,7 @@ import { ThemeService } from '../../ui/theme.service';
           <!-- Mobile hamburger -->
           <button
             type="button"
-            class="md:hidden p-2 rounded-xl text-white/50 hover:text-white hover:bg-white/8 transition-all"
+            class="md:hidden p-2 rounded-xl text-white/50 hover:text-white hover:bg-white/[0.08] transition-all"
             (click)="mobileOpen.set(!mobileOpen())"
             [attr.aria-expanded]="mobileOpen()"
             aria-label="Toggle menu"
@@ -180,13 +180,13 @@ import { ThemeService } from '../../ui/theme.service';
   `,
   styles: [`
     .nav-link {
-      @apply px-3 py-2 rounded-xl text-sm text-white/60 hover:text-white hover:bg-white/8 transition-all duration-200;
+      @apply px-3 py-2 rounded-xl text-sm text-white/60 hover:text-white hover:bg-white/[0.08] transition-all duration-200;
     }
     .nav-link-active {
-      @apply text-white bg-white/8;
+      @apply text-white bg-white/[0.08];
     }
     .mobile-nav-link {
-      @apply block px-3 py-2.5 rounded-xl text-sm text-white/70 hover:text-white hover:bg-white/8 transition-all;
+      @apply block px-3 py-2.5 rounded-xl text-sm text-white/70 hover:text-white hover:bg-white/[0.08] transition-all;
     }
     :host { display: block; }
   `],
