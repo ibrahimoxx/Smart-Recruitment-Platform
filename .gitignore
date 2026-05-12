@@ -88,6 +88,9 @@ dist/
 
 # ===== DOCKER =====
 .docker/
+docker-compose.dev.yml
+docker-compose.local.yml
+docker-compose.override.yml
 
 # ===== MISC =====
 *.tmp
