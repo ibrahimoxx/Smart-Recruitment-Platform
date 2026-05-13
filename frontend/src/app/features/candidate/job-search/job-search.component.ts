@@ -12,7 +12,6 @@ import { JobCardComponent } from '../../../shared/components/job-card/job-card.c
 import { JobCardSkeletonComponent } from '../../../shared/components/loading-states/job-card-skeleton.component';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { EmptyStateComponent } from '../../../shared/components/empty-state/empty-state.component';
-import { StatusBadgeComponent } from '../../../shared/components/status-badge/status-badge.component';
 
 interface ActiveFilter { key: string; label: string; }
 
@@ -22,7 +21,7 @@ interface ActiveFilter { key: string; label: string; }
   imports: [
     CommonModule, RouterLink, FormsModule,
     JobCardComponent, JobCardSkeletonComponent,
-    PaginationComponent, EmptyStateComponent, StatusBadgeComponent,
+    PaginationComponent, EmptyStateComponent,
   ],
   template: `
     <!-- Hero -->

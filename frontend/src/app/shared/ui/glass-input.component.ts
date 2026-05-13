@@ -32,6 +32,8 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@a
           [attr.autocomplete]="autocomplete"
           [attr.aria-describedby]="error ? inputId + '-error' : null"
           [attr.aria-invalid]="!!error"
+          [attr.min]="min ?? null"
+          [attr.max]="max ?? null"
           [value]="value()"
           (input)="onInput($event)"
           (blur)="onTouched()"
@@ -78,12 +80,14 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@a
 export class GlassInputComponent implements ControlValueAccessor {
   @Input() label = '';
   @Input() placeholder = '';
-  @Input() type: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' = 'text';
+  @Input() type: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' | 'date' = 'text';
   @Input() error = '';
   @Input() hint = '';
   @Input() required = false;
   @Input() autocomplete = 'off';
   @Input() iconLeft = false;
+  @Input() min?: string;
+  @Input() max?: string;
   @Input() inputId = `input-${Math.random().toString(36).slice(2, 8)}`;
 
   value = signal('');
