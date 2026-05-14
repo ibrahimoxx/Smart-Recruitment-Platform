@@ -97,7 +97,9 @@ import { AdminDashboard } from '../../../core/models/dashboard.model';
           <div class="glass rounded-2xl p-6 border border-glass flex flex-col items-center justify-center gap-4">
             <h2 class="text-sm font-bold text-white/60 uppercase tracking-wider self-start w-full">Avg match score</h2>
             <div class="relative">
-              <svg viewBox="0 0 120 80" class="w-36 h-24">
+              <svg viewBox="0 0 120 80" class="w-36 h-24"
+                role="img" [attr.aria-label]="'Average match score gauge: ' + avgScore() + ' out of 100'">
+                <title>Average match score gauge</title>
                 <!-- Track arc (180°) -->
                 <path d="M 10 70 A 50 50 0 0 1 110 70" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="10" stroke-linecap="round"/>
                 <!-- Value arc -->

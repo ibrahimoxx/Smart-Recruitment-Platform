@@ -336,3 +336,40 @@ code, pre, kbd {
 .animate-scale-in {
   animation: scale-in 0.15s ease-out;
 }
+
+/* ─── Touch Device Overrides ─── */
+@media (hover: none) and (pointer: coarse) {
+  .glass-hover:hover {
+    background: var(--glass-bg);
+    border-color: var(--glass-border);
+    box-shadow: none;
+  }
+  .btn-primary:hover { transform: none; box-shadow: 0 0 20px rgba(124,58,237,0.3); }
+  .btn-glass:hover { color: rgba(255,255,255,0.8); }
+}
+
+/* ─── Bottom Sheet ─── */
+@keyframes slide-up-sheet {
+  from { transform: translateY(100%); opacity: 0.8; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.sheet-open {
+  animation: slide-up-sheet 0.3s ease-out;
+}
+
+/* Safe area padding for bottom sheet on iOS */
+.pb-safe { padding-bottom: env(safe-area-inset-bottom, 1.5rem); }
+
+/* ─── Visually Hidden (screen-reader only) ─── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
