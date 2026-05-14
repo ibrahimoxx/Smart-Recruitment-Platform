@@ -154,6 +154,27 @@ interface ActiveFilter { key: string; label: string; }
           <!-- Toolbar -->
           <div class="flex items-center justify-between gap-4 mb-6 flex-wrap">
             <div class="flex items-center gap-2 flex-wrap">
+              <!-- Mobile filter toggle (hidden on lg+) -->
+              <button
+                type="button"
+                (click)="mobileFiltersOpen.set(true)"
+                class="lg:hidden flex items-center gap-2 px-3 py-2 rounded-xl glass text-xs text-white/70 hover:text-white border border-glass transition-all"
+                [class.border-aurora-violet/40]="hasActiveFilters()"
+                [class.text-aurora-violet-light]="hasActiveFilters()"
+                aria-label="Open filters"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L13 13.414V19a1 1 0 01-.553.894l-4 2A1 1 0 017 21v-7.586L3.293 6.707A1 1 0 013 6V4z"/>
+                </svg>
+                Filters
+                @if (activeFilters().length > 0) {
+                  <span class="w-4 h-4 rounded-full text-[10px] font-bold flex items-center justify-center"
+                    style="background:rgba(124,58,237,0.8);color:white">
+                    {{ activeFilters().length }}
+                  </span>
+                }
+              </button>
+
               <!-- Active filter pills -->
               @for (f of activeFilters(); track f.key) {
                 <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium animate-scale-in"

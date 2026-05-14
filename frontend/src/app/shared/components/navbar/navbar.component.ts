@@ -155,28 +155,81 @@ import { ThemeService } from '../../ui/theme.service';
         </div>
       </div>
 
-      <!-- Mobile Menu -->
-      @if (mobileOpen()) {
-        <div class="md:hidden glass border-t border-glass px-4 py-3 space-y-1 animate-fade-in-up">
-          <a routerLink="/jobs" (click)="mobileOpen.set(false)" class="mobile-nav-link">Browse Jobs</a>
-          @if (auth.isLoggedIn()) {
-            @if (auth.userRole() === 'CANDIDATE') {
-              <a routerLink="/candidate/profile" (click)="mobileOpen.set(false)" class="mobile-nav-link">Profile</a>
-              <a routerLink="/candidate/applications" (click)="mobileOpen.set(false)" class="mobile-nav-link">My Applications</a>
-            }
-            @if (auth.userRole() === 'RECRUITER') {
-              <a routerLink="/recruiter/dashboard" (click)="mobileOpen.set(false)" class="mobile-nav-link">Dashboard</a>
-              <a routerLink="/recruiter/jobs" (click)="mobileOpen.set(false)" class="mobile-nav-link">My Jobs</a>
-            }
-            @if (auth.userRole() === 'ADMIN') {
-              <a routerLink="/admin/dashboard" (click)="mobileOpen.set(false)" class="mobile-nav-link">Dashboard</a>
-              <a routerLink="/admin/users" (click)="mobileOpen.set(false)" class="mobile-nav-link">Users</a>
-            }
-            <button type="button" (click)="logout()" class="mobile-nav-link text-red-400 w-full text-left">Sign out</button>
-          }
-        </div>
-      }
     </nav>
+
+    <!-- Mobile bottom-sheet nav -->
+    @if (mobileOpen()) {
+      <div class="md:hidden">
+        <!-- Backdrop -->
+        <div
+          class="fixed inset-0 bg-black/50 z-40"
+          (click)="mobileOpen.set(false)"
+          aria-hidden="true"
+        ></div>
+
+        <!-- Sheet -->
+        <div
+          class="fixed bottom-0 left-0 right-0 z-50 glass-strong rounded-t-3xl border-t border-glass sheet-open"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile navigation"
+        >
+          <!-- Drag handle -->
+          <div class="flex justify-center pt-3 pb-2">
+            <div class="w-10 h-1 rounded-full bg-white/20"></div>
+          </div>
+
+          <div class="px-4 pb-safe pb-6 space-y-1">
+            <a routerLink="/jobs" (click)="mobileOpen.set(false)" class="mobile-nav-link">
+              <svg class="w-4 h-4 inline mr-2 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+              </svg>
+              Browse Jobs
+            </a>
+
+            @if (auth.isLoggedIn()) {
+              @if (auth.userRole() === 'CANDIDATE') {
+                <a routerLink="/candidate/profile" (click)="mobileOpen.set(false)" class="mobile-nav-link">
+                  <svg class="w-4 h-4 inline mr-2 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                  </svg>
+                  Profile
+                </a>
+                <a routerLink="/candidate/applications" (click)="mobileOpen.set(false)" class="mobile-nav-link">
+                  <svg class="w-4 h-4 inline mr-2 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                  </svg>
+                  My Applications
+                </a>
+              }
+              @if (auth.userRole() === 'RECRUITER') {
+                <a routerLink="/recruiter/dashboard" (click)="mobileOpen.set(false)" class="mobile-nav-link">Dashboard</a>
+                <a routerLink="/recruiter/jobs" (click)="mobileOpen.set(false)" class="mobile-nav-link">My Jobs</a>
+              }
+              @if (auth.userRole() === 'ADMIN') {
+                <a routerLink="/admin/dashboard" (click)="mobileOpen.set(false)" class="mobile-nav-link">Dashboard</a>
+                <a routerLink="/admin/users" (click)="mobileOpen.set(false)" class="mobile-nav-link">Users</a>
+              }
+
+              <div class="h-px bg-white/10 my-2"></div>
+              <button
+                type="button"
+                (click)="logout()"
+                class="mobile-nav-link text-red-400 w-full text-left"
+              >
+                <svg class="w-4 h-4 inline mr-2 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                </svg>
+                Sign out
+              </button>
+            } @else {
+              <a routerLink="/login" (click)="mobileOpen.set(false)" class="mobile-nav-link">Sign in</a>
+              <a routerLink="/register" (click)="mobileOpen.set(false)" class="mobile-nav-link aurora-text font-semibold">Get started</a>
+            }
+          </div>
+        </div>
+      </div>
+    }
   `,
   styles: [`
     .nav-link {
