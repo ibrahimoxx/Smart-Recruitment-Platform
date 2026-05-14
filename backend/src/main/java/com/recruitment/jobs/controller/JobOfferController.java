@@ -80,6 +80,12 @@ public class JobOfferController {
         return ResponseEntity.ok(ApiResponse.success(jobOfferService.getJobOffer(id)));
     }
 
+    @GetMapping("/similar/{id}")
+    @PreAuthorize("permitAll()")
+    public ResponseEntity<ApiResponse<List<JobOfferResponse>>> getSimilarJobs(@PathVariable UUID id) {
+        return ResponseEntity.ok(ApiResponse.success(jobOfferService.getSimilarJobs(id)));
+    }
+
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('RECRUITER', 'ADMIN')")
     public ResponseEntity<ApiResponse<JobOfferResponse>> updateJobOffer(
