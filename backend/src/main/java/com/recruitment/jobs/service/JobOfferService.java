@@ -16,6 +16,7 @@ import com.recruitment.users.entity.Company;
 import com.recruitment.users.entity.RecruiterProfile;
 import com.recruitment.users.repository.CompanyRepository;
 import com.recruitment.users.repository.RecruiterProfileRepository;
+import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -136,6 +137,15 @@ public class JobOfferService {
         }
 
         return JobOfferResponse.from(jobOfferRepository.save(offer));
+    }
+
+    @Transactional(readOnly = true)
+    public List<JobOfferResponse> getSimilarJobs(UUID id) {
+        JobOffer offer = findOfferOrThrow(id);
+        return jobOfferRepository.findSimilar(id, offer.getContractType(), offer.getExperienceLevel())
+                .stream()
+                .map(JobOfferResponse::from)
+                .toList();
     }
 
     private JobOffer findOfferOrThrow(UUID id) {
