@@ -46,7 +46,9 @@ import { AdminDashboard } from '../../../core/models/dashboard.model';
           <div class="glass rounded-2xl p-6 border border-glass">
             <h2 class="text-sm font-bold text-white/60 uppercase tracking-wider mb-5">Jobs by status</h2>
             <div class="flex items-center gap-6">
-              <svg viewBox="0 0 120 120" class="w-28 h-28 flex-shrink-0 -rotate-90">
+              <svg viewBox="0 0 120 120" class="w-28 h-28 flex-shrink-0 -rotate-90"
+                role="img" aria-labelledby="donut-title">
+                <title id="donut-title">Jobs by status donut chart</title>
                 @for (seg of jobsDonut(); track seg.status; let i = $index) {
                   <circle cx="60" cy="60" r="44"
                     fill="none"
@@ -55,6 +57,7 @@ import { AdminDashboard } from '../../../core/models/dashboard.model';
                     [attr.stroke-dasharray]="'276.5'"
                     [attr.stroke-dashoffset]="seg.offset"
                     [attr.opacity]="seg.value > 0 ? 1 : 0"
+                    [attr.aria-label]="seg.status + ': ' + seg.value"
                   />
                 }
               </svg>
@@ -71,7 +74,7 @@ import { AdminDashboard } from '../../../core/models/dashboard.model';
           </div>
 
           <!-- Applications by status — stacked bar -->
-          <div class="glass rounded-2xl p-6 border border-glass">
+          <div class="glass rounded-2xl p-6 border border-glass" role="region" aria-label="Applications by status">
             <h2 class="text-sm font-bold text-white/60 uppercase tracking-wider mb-5">Applications by status</h2>
             <div class="space-y-3">
               @for (bar of appBars(); track bar.status) {

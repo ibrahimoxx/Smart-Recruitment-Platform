@@ -237,6 +237,80 @@ interface ActiveFilter { key: string; label: string; }
         </div>
       </div>
     </section>
+
+    <!-- Mobile filter bottom-sheet -->
+    @if (mobileFiltersOpen()) {
+      <div class="lg:hidden">
+        <div class="fixed inset-0 bg-black/60 z-40" (click)="mobileFiltersOpen.set(false)" aria-hidden="true"></div>
+        <div
+          class="fixed bottom-0 left-0 right-0 z-50 glass-strong rounded-t-3xl border-t border-glass sheet-open"
+          role="dialog" aria-modal="true" aria-label="Job filters"
+          style="max-height:82vh;overflow-y:auto"
+        >
+          <div class="flex justify-center pt-3 pb-1"><div class="w-10 h-1 rounded-full bg-white/20"></div></div>
+          <div class="flex items-center justify-between px-5 py-3 border-b border-glass">
+            <h2 class="text-sm font-bold text-white">Filters</h2>
+            <div class="flex items-center gap-3">
+              @if (hasActiveFilters()) {
+                <button type="button" (click)="clearAllFilters()" class="text-xs text-aurora-violet">Clear all</button>
+              }
+              <button type="button" (click)="mobileFiltersOpen.set(false)" class="p-1 rounded-lg text-white/40 hover:text-white" aria-label="Close filters">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="px-5 py-4 space-y-5 pb-8">
+            <!-- Contract type -->
+            <div>
+              <h3 class="text-xs font-semibold text-white/40 uppercase tracking-wider mb-3">Contract</h3>
+              <div class="grid grid-cols-2 gap-2">
+                @for (ct of contractTypes; track ct.value) {
+                  <button type="button" (click)="toggleContractType(ct.value)"
+                    class="filter-chip text-center" [class.filter-chip-active]="filter.contractType === ct.value">
+                    {{ ct.label }}
+                  </button>
+                }
+              </div>
+            </div>
+            <!-- Experience -->
+            <div>
+              <h3 class="text-xs font-semibold text-white/40 uppercase tracking-wider mb-3">Experience</h3>
+              <div class="grid grid-cols-2 gap-2">
+                @for (ex of experienceLevels; track ex.value) {
+                  <button type="button" (click)="toggleExperience(ex.value)"
+                    class="filter-chip text-center" [class.filter-chip-active]="filter.experienceLevel === ex.value">
+                    {{ ex.label }}
+                  </button>
+                }
+              </div>
+            </div>
+            <!-- Remote -->
+            <div>
+              <h3 class="text-xs font-semibold text-white/40 uppercase tracking-wider mb-3">Work mode</h3>
+              <button type="button" (click)="toggleRemote()"
+                class="filter-chip w-full" [class.filter-chip-active]="filter.remote === true">
+                🌐 Remote only
+              </button>
+            </div>
+            <!-- Salary -->
+            <div>
+              <h3 class="text-xs font-semibold text-white/40 uppercase tracking-wider mb-2">Min salary</h3>
+              <input type="range" min="0" max="200000" step="5000"
+                [(ngModel)]="salaryMin" (change)="onSalaryChange()"
+                class="salary-slider w-full" aria-label="Minimum salary" />
+              <p class="text-xs text-white/40 mt-1">{{ salaryMin > 0 ? '≥ ' + formatK(salaryMin) + ' USD' : 'Any salary' }}</p>
+            </div>
+            <!-- Apply button -->
+            <button type="button" (click)="mobileFiltersOpen.set(false)" class="btn-primary w-full mt-2">
+              Show {{ totalElements() }} results
+            </button>
+          </div>
+        </div>
+      </div>
+    }
   `,
   styles: [`
     :host { display: block; }
@@ -277,6 +351,7 @@ export class JobSearchComponent implements OnInit, OnDestroy {
   loading = signal(true);
   totalElements = signal(0);
   totalPages = signal(0);
+  mobileFiltersOpen = signal(false);
 
   searchQuery = '';
   sortBy = 'createdAt,desc';
