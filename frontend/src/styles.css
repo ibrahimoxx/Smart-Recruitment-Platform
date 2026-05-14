@@ -290,3 +290,49 @@ code, pre, kbd {
 @keyframes ripple-expand {
   to { transform: scale(4); opacity: 0; }
 }
+
+/* ─── View Transitions (page-level aurora fade) ─── */
+@keyframes aurora-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes aurora-fade-out {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-6px); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-reverse {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+::view-transition-old(root) {
+  animation: 180ms ease aurora-fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 180ms ease aurora-fade-in;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
+
+/* ─── Command Palette ─── */
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.96) translateY(-8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.animate-scale-in {
+  animation: scale-in 0.15s ease-out;
+}
