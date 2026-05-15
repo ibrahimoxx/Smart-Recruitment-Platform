@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CandidateService } from '../../../core/services/candidate.service';
+import { CandidateService, CandidateProfileRequest } from '../../../core/services/candidate.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { ToastService } from '../../../shared/ui/toast.service';
 import { CandidateProfile } from '../../../core/models/user.model';
@@ -319,7 +319,7 @@ export class CandidateProfileComponent implements OnInit {
     if (this.profileForm.invalid) return;
     this.saving.set(true);
     const v = this.profileForm.value;
-    const data = {
+    const data: CandidateProfileRequest = {
       headline:          v.headline          ?? undefined,
       summary:           v.summary           ?? undefined,
       location:          v.location          ?? undefined,

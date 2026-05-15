@@ -10,6 +10,18 @@ export interface CvUploadResponse {
   uploadedAt: string;
 }
 
+export interface CandidateProfileRequest {
+  headline?: string;
+  summary?: string;
+  location?: string;
+  yearsOfExperience?: number;
+  experienceLevel?: string;
+  skills?: string;
+  linkedinUrl?: string;
+  githubUrl?: string;
+  portfolioUrl?: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class CandidateService {
   private readonly api = `${environment.apiUrl}/api/candidate-profiles`;
@@ -20,11 +32,7 @@ export class CandidateService {
     return this.http.get<ApiResponse<CandidateProfile>>(`${this.api}/me`);
   }
 
-  createProfile(data: Partial<CandidateProfile>) {
-    return this.http.put<ApiResponse<CandidateProfile>>(`${this.api}/me`, data);
-  }
-
-  updateProfile(data: Partial<CandidateProfile>) {
+  updateProfile(data: CandidateProfileRequest) {
     return this.http.put<ApiResponse<CandidateProfile>>(`${this.api}/me`, data);
   }
 
