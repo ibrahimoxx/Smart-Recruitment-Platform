@@ -4,6 +4,12 @@ import { environment } from '../../../environments/environment';
 import { ApiResponse } from '../models/api-response.model';
 import { CandidateProfile } from '../models/user.model';
 
+export interface CvUploadResponse {
+  objectKey: string;
+  originalFilename: string;
+  uploadedAt: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class CandidateService {
   private readonly api = `${environment.apiUrl}/api/candidate-profiles`;

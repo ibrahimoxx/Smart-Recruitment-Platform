@@ -378,10 +378,12 @@ export class CandidateProfileComponent implements OnInit {
     }, 300);
 
     this.candidateService.uploadCv(file).subscribe({
-      next: res => {
+      next: () => {
         clearInterval(interval);
         this.uploadProgress.set(100);
-        this.profile.set(res.data);
+        this.candidateService.getMyProfile().subscribe({
+          next: profileRes => this.profile.set(profileRes.data),
+        });
         setTimeout(() => this.uploadProgress.set(0), 800);
         this.toast.success('CV uploaded!', 'Your profile is being parsed by AI.');
       },
