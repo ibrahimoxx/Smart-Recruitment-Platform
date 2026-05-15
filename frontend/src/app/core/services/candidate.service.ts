@@ -6,26 +6,26 @@ import { CandidateProfile } from '../models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class CandidateService {
-  private readonly api = `${environment.apiUrl}/api/candidates`;
+  private readonly api = `${environment.apiUrl}/api/candidate-profiles`;
 
   constructor(private http: HttpClient) {}
 
   getMyProfile() {
-    return this.http.get<ApiResponse<CandidateProfile>>(`${this.api}/profile/me`);
+    return this.http.get<ApiResponse<CandidateProfile>>(`${this.api}/me`);
   }
 
   createProfile(data: Partial<CandidateProfile>) {
-    return this.http.post<ApiResponse<CandidateProfile>>(`${this.api}/profile`, data);
+    return this.http.put<ApiResponse<CandidateProfile>>(`${this.api}/me`, data);
   }
 
   updateProfile(data: Partial<CandidateProfile>) {
-    return this.http.put<ApiResponse<CandidateProfile>>(`${this.api}/profile`, data);
+    return this.http.put<ApiResponse<CandidateProfile>>(`${this.api}/me`, data);
   }
 
   uploadCv(file: File) {
     const formData = new FormData();
     formData.append('file', file);
-    return this.http.post<ApiResponse<CandidateProfile>>(`${this.api}/profile/cv`, formData);
+    return this.http.post<ApiResponse<CandidateProfile>>(`${this.api}/me/cv`, formData);
   }
 
   getById(id: string) {
