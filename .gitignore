@@ -24,6 +24,7 @@ ai-output/
 ai_output/
 scripts/generated/
 graph.html
+graphify-out/
 
 # ===== JAVA / MAVEN =====
 target/
