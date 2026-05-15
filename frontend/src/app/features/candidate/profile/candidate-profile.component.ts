@@ -92,13 +92,13 @@ import { MagneticButtonComponent } from '../../../shared/ui/magnetic-button.comp
 
               @if (editMode()) {
                 <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" novalidate class="space-y-4">
-                  <div class="grid grid-cols-2 gap-4">
-                    <app-glass-input formControlName="firstName" label="First name" placeholder="Jane" />
-                    <app-glass-input formControlName="lastName" label="Last name" placeholder="Doe" />
-                  </div>
-                  <app-glass-input formControlName="phone" label="Phone" type="tel" placeholder="+1 555 000 0000" />
+                  <app-glass-input formControlName="headline" label="Headline" placeholder="e.g. Senior Full-Stack Engineer" />
                   <app-glass-input formControlName="location" label="Location" placeholder="Paris, France" />
-                  <app-glass-textarea formControlName="bio" label="Bio" placeholder="A short introduction about yourself…" [rows]="3" />
+                  <app-glass-input formControlName="yearsOfExperience" label="Years of experience" type="number" placeholder="3" />
+                  <app-glass-textarea formControlName="summary" label="Summary" placeholder="A short introduction about yourself…" [rows]="3" />
+                  <app-glass-input formControlName="linkedinUrl" label="LinkedIn URL" placeholder="https://linkedin.com/in/..." />
+                  <app-glass-input formControlName="githubUrl" label="GitHub URL" placeholder="https://github.com/..." />
+                  <app-glass-input formControlName="portfolioUrl" label="Portfolio URL" placeholder="https://yoursite.com" />
                   <div class="flex gap-3 pt-2">
                     <button type="button" (click)="cancelEdit()" class="flex-1 btn-glass py-2.5 text-sm">Cancel</button>
                     <app-magnetic-button type="submit" variant="primary" size="md" [loading]="saving()" class="flex-1 block">
@@ -178,7 +178,7 @@ import { MagneticButtonComponent } from '../../../shared/ui/magnetic-button.comp
         <div class="mt-6 glass rounded-2xl p-6 border border-glass">
           <h2 class="text-base font-bold text-white mb-5">Curriculum Vitae</h2>
 
-          @if (profile()?.cvFileName) {
+          @if (profile()?.hasCv) {
             <div class="flex items-center gap-4 p-4 rounded-xl mb-4"
               style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2)">
               <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
@@ -189,8 +189,8 @@ import { MagneticButtonComponent } from '../../../shared/ui/magnetic-button.comp
                 </svg>
               </div>
               <div class="flex-1 min-w-0">
-                <p class="text-sm font-medium text-white truncate">{{ profile()!.cvFileName }}</p>
-                <p class="text-xs text-white/40">CV on file — recruiters can view your parsed profile</p>
+                <p class="text-sm font-medium text-white">CV on file</p>
+                <p class="text-xs text-white/40">Uploaded {{ profile()!.cvUploadedAt | date:'mediumDate' }} — recruiters can view your parsed profile</p>
               </div>
             </div>
           }
