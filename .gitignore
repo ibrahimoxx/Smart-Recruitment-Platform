@@ -98,3 +98,5 @@ docker-compose.override.yml
 *.tmp
 *.bak
 *.orig
+deps-compile.txt
+deps-test.txt
