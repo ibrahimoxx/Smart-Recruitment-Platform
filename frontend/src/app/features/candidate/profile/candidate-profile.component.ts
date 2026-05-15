@@ -357,7 +357,7 @@ export class CandidateProfileComponent implements OnInit {
   }
 
   private saveSkills(skills: string[]): void {
-    this.candidateService.updateProfile({ skills }).subscribe({
+    this.candidateService.updateProfile({ skills: skills.join(',') }).subscribe({
       next: res => this.profile.set(res.data),
       error: () => this.toast.error('Could not update skills.'),
     });
