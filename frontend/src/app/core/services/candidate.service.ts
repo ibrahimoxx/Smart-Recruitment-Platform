@@ -31,7 +31,7 @@ export class CandidateService {
   uploadCv(file: File) {
     const formData = new FormData();
     formData.append('file', file);
-    return this.http.post<ApiResponse<CandidateProfile>>(`${this.api}/me/cv`, formData);
+    return this.http.post<ApiResponse<CvUploadResponse>>(`${this.api}/me/cv`, formData);
   }
 
   getById(id: string) {
