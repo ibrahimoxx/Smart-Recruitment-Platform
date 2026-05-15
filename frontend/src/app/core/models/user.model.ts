@@ -15,14 +15,18 @@ export interface CandidateProfile {
   firstName: string;
   lastName: string;
   email: string;
-  phone?: string;
+  headline?: string;
+  summary?: string;
   location?: string;
-  bio?: string;
-  cvUrl?: string;
-  cvFileName?: string;
-  skills: string[];
+  yearsOfExperience?: number;
+  experienceLevel?: string;
+  skills?: string;
+  linkedinUrl?: string;
+  githubUrl?: string;
+  portfolioUrl?: string;
+  hasCv: boolean;
+  cvUploadedAt?: string;
   createdAt: string;
-  updatedAt: string;
 }
 
 export interface RecruiterProfile {

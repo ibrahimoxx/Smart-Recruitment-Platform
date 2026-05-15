@@ -255,11 +255,13 @@ export class CandidateProfileComponent implements OnInit {
   uploadProgress = signal(0);
 
   profileForm = this.fb.group({
-    firstName: ['', [Validators.required, Validators.minLength(2)]],
-    lastName:  ['', [Validators.required, Validators.minLength(2)]],
-    phone:     [''],
-    location:  [''],
-    bio:       [''],
+    headline:         [''],
+    summary:          [''],
+    location:         [''],
+    yearsOfExperience:[null as number | null],
+    linkedinUrl:      [''],
+    githubUrl:        [''],
+    portfolioUrl:     [''],
   });
 
   fullName = computed(() => {
@@ -273,15 +275,20 @@ export class CandidateProfileComponent implements OnInit {
     return `${u.firstName?.[0] ?? ''}${u.lastName?.[0] ?? ''}`.toUpperCase() || '?';
   });
 
-  skills = computed(() => this.profile()?.skills ?? []);
+  skills = computed(() => {
+    const raw = this.profile()?.skills;
+    if (!raw) return [];
+    return raw.split(',').map(s => s.trim()).filter(Boolean);
+  });
 
   displayFields = computed(() => {
     const p = this.profile();
     return [
-      { label: 'First name', value: p?.firstName ?? '' },
-      { label: 'Last name',  value: p?.lastName ?? '' },
-      { label: 'Phone',      value: p?.phone ?? '' },
-      { label: 'Location',   value: p?.location ?? '' },
+      { label: 'First name',  value: p?.firstName ?? '' },
+      { label: 'Last name',   value: p?.lastName ?? '' },
+      { label: 'Location',    value: p?.location ?? '' },
+      { label: 'Experience',  value: p?.yearsOfExperience != null ? `${p.yearsOfExperience} yrs` : '' },
+      { label: 'Level',       value: p?.experienceLevel ?? '' },
     ];
   });
 
@@ -295,11 +302,13 @@ export class CandidateProfileComponent implements OnInit {
   startEdit(): void {
     const p = this.profile();
     this.profileForm.patchValue({
-      firstName: p?.firstName ?? '',
-      lastName:  p?.lastName ?? '',
-      phone:     p?.phone ?? '',
-      location:  p?.location ?? '',
-      bio:       p?.bio ?? '',
+      headline:          p?.headline ?? '',
+      summary:           p?.summary ?? '',
+      location:          p?.location ?? '',
+      yearsOfExperience: p?.yearsOfExperience ?? null,
+      linkedinUrl:       p?.linkedinUrl ?? '',
+      githubUrl:         p?.githubUrl ?? '',
+      portfolioUrl:      p?.portfolioUrl ?? '',
     });
     this.editMode.set(true);
   }
@@ -310,16 +319,16 @@ export class CandidateProfileComponent implements OnInit {
     if (this.profileForm.invalid) return;
     this.saving.set(true);
     const v = this.profileForm.value;
-    const data: Partial<import('../../../core/models/user.model').CandidateProfile> = {
-      firstName: v.firstName ?? undefined,
-      lastName:  v.lastName  ?? undefined,
-      phone:     v.phone     ?? undefined,
-      location:  v.location  ?? undefined,
-      bio:       v.bio       ?? undefined,
+    const data = {
+      headline:          v.headline          ?? undefined,
+      summary:           v.summary           ?? undefined,
+      location:          v.location          ?? undefined,
+      yearsOfExperience: v.yearsOfExperience ?? undefined,
+      linkedinUrl:       v.linkedinUrl       ?? undefined,
+      githubUrl:         v.githubUrl         ?? undefined,
+      portfolioUrl:      v.portfolioUrl      ?? undefined,
     };
-    const save$ = this.profile()
-      ? this.candidateService.updateProfile(data)
-      : this.candidateService.createProfile(data);
+    const save$ = this.candidateService.updateProfile(data);
 
     save$.subscribe({
       next: res => {
