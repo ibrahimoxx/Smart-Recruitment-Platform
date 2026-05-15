@@ -1,7 +1,7 @@
 import {
   Component, inject, signal, computed, OnInit, ElementRef, ViewChild,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CandidateService } from '../../../core/services/candidate.service';
 import { AuthService } from '../../../core/services/auth.service';
@@ -15,7 +15,7 @@ import { MagneticButtonComponent } from '../../../shared/ui/magnetic-button.comp
   selector: 'app-candidate-profile',
   standalone: true,
   imports: [
-    CommonModule, FormsModule, ReactiveFormsModule,
+    CommonModule, DatePipe, FormsModule, ReactiveFormsModule,
     GlassInputComponent, GlassTextareaComponent, MagneticButtonComponent,
   ],
   template: `
