@@ -10,10 +10,11 @@ import { ThemeService } from './shared/ui/theme.service';
     <a class="skip-to-content" href="#main-content">Skip to content</a>
     <router-outlet />
     <ngx-sonner-toaster
-      position="top-right"
+      position="top-center"
       [richColors]="true"
       [closeButton]="true"
-      [duration]="4000"
+      [duration]="5000"
+      [expand]="true"
     />
   `,
 })

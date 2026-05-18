@@ -372,6 +372,18 @@ export class CandidateProfileComponent implements OnInit {
   }
 
   private uploadFile(file: File): void {
+    const allowedTypes = ['application/pdf'];
+    const maxBytes = 10 * 1024 * 1024;
+
+    if (!allowedTypes.includes(file.type) && !file.name.toLowerCase().endsWith('.pdf')) {
+      this.toast.error('Invalid file type', 'CV must be a PDF file.');
+      return;
+    }
+    if (file.size > maxBytes) {
+      this.toast.error('File too large', 'CV file must not exceed 10 MB.');
+      return;
+    }
+
     this.uploadProgress.set(10);
     const interval = setInterval(() => {
       if (this.uploadProgress() < 80) this.uploadProgress.update(v => v + 15);
@@ -390,7 +402,7 @@ export class CandidateProfileComponent implements OnInit {
       error: () => {
         clearInterval(interval);
         this.uploadProgress.set(0);
-        this.toast.error('CV upload failed.');
+        this.toast.error('CV upload failed', 'Please try again or contact support.');
       },
     });
   }
