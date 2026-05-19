@@ -10,6 +10,7 @@ export interface JobOffer {
   requirements: string;
   location: string;
   remote: boolean;
+  workMode: WorkMode;
   contractType: ContractType;
   experienceLevel: ExperienceLevel;
   salaryMin?: number;
@@ -31,6 +32,7 @@ export interface JobOfferRequest {
   requirements: string;
   location: string;
   remote: boolean;
+  workMode: WorkMode;
   contractType: ContractType;
   experienceLevel: ExperienceLevel;
   salaryMin?: number;
@@ -43,6 +45,7 @@ export interface JobOfferFilter {
   search?: string;
   contractType?: ContractType;
   experienceLevel?: ExperienceLevel;
+  workMode?: WorkMode;
   remote?: boolean;
   location?: string;
   salaryMin?: number;
