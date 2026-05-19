@@ -83,7 +83,7 @@ import { MagneticButtonComponent } from '../../../shared/ui/magnetic-button.comp
                 <div class="flex flex-wrap gap-2 mb-6">
                   <span class="tag">{{ contractLabel() }}</span>
                   <span class="tag">{{ experienceLabel() }}</span>
-                  @if (job()!.remote) { <span class="tag tag-green">Remote</span> }
+                  <span class="tag tag-green">{{ workModeLabel() }}</span>
                   @if (job()!.location) { <span class="tag">{{ job()!.location }}</span> }
                   <app-status-badge [status]="job()!.status" />
                 </div>
@@ -416,6 +416,11 @@ export class JobDetailComponent implements OnInit, OnDestroy {
       LEAD: 'Lead',
     };
     return map[this.job()?.experienceLevel ?? ''] ?? '';
+  });
+
+  workModeLabel = computed(() => {
+    const map: Record<string, string> = { REMOTE: '🌐 Remote', HYBRID: '🏠 Hybrid', ON_SITE: '🏢 On-site' };
+    return map[this.job()?.workMode ?? ''] ?? '';
   });
 
   salaryDisplay = computed(() => {
