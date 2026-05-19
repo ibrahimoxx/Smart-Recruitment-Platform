@@ -61,6 +61,7 @@ public class JobOfferController {
             @RequestParam(required = false) Boolean remoteAllowed,
             @RequestParam(required = false) UUID companyId,
             @RequestParam(required = false) UUID recruiterId,
+            @RequestParam(required = false) BigDecimal salaryMin,
             @PageableDefault(size = 20) Pageable pageable) {
         return ResponseEntity.ok(ApiResponse.success(jobOfferService.listJobOffers(
                 title,
@@ -71,6 +72,7 @@ public class JobOfferController {
                 remoteAllowed,
                 companyId,
                 recruiterId,
+                salaryMin,
                 pageable
         )));
     }
