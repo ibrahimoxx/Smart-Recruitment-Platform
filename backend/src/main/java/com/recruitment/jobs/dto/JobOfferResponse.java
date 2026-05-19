@@ -48,6 +48,7 @@ public record JobOfferResponse(
                 offer.getResponsibilities(),
                 offer.getLocation(),
                 offer.isRemoteAllowed(),
+                offer.getWorkMode(),
                 offer.getSalaryMin(),
                 offer.getSalaryMax(),
                 offer.getCurrency(),
