@@ -360,19 +360,18 @@ export class JobSearchComponent implements OnInit, OnDestroy {
   filter: JobOfferFilter = { page: 0, size: 12 };
 
   contractTypes: { value: ContractType; label: string }[] = [
-    { value: 'FULL_TIME',   label: '💼 Full-time' },
-    { value: 'PART_TIME',   label: '⏰ Part-time' },
-    { value: 'CONTRACT',    label: '📋 Contract' },
-    { value: 'INTERNSHIP',  label: '🎓 Internship' },
-    { value: 'FREELANCE',   label: '🚀 Freelance' },
+    { value: 'CDI',        label: '💼 CDI' },
+    { value: 'CDD',        label: '📋 CDD' },
+    { value: 'PART_TIME',  label: '⏰ Part-time' },
+    { value: 'INTERNSHIP', label: '🎓 Internship' },
+    { value: 'FREELANCE',  label: '🚀 Freelance' },
   ];
 
   experienceLevels: { value: ExperienceLevel; label: string }[] = [
-    { value: 'JUNIOR',    label: '🌱 Junior' },
-    { value: 'MID',       label: '⚡ Mid-level' },
-    { value: 'SENIOR',    label: '🔥 Senior' },
-    { value: 'LEAD',      label: '👑 Lead' },
-    { value: 'EXECUTIVE', label: '🎯 Executive' },
+    { value: 'JUNIOR', label: '🌱 Junior' },
+    { value: 'MID',    label: '⚡ Mid-level' },
+    { value: 'SENIOR', label: '🔥 Senior' },
+    { value: 'LEAD',   label: '👑 Lead' },
   ];
 
   activeFilters = computed<ActiveFilter[]>(() => {
