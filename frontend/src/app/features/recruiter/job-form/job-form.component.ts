@@ -195,6 +195,7 @@ export class JobFormComponent implements OnInit {
     requirements:    [''],
     location:        [''],
     remote:          [false],
+    workMode:        ['ON_SITE' as WorkMode, Validators.required],
     contractType:    ['CDI' as ContractType, Validators.required],
     experienceLevel: ['MID' as ExperienceLevel, Validators.required],
     salaryMin:       [null as number | null],

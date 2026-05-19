@@ -112,7 +112,7 @@ export class JobCardComponent {
     const map: Record<string, string> = {
       REMOTE: '🌐 Remote', HYBRID: '🏠 Hybrid', ON_SITE: '🏢 On-site',
     };
-    return map[this.job.contractType] ?? this.job.contractType;
+    return map[this.job.workMode] ?? this.job.workMode;
   }
 
   get experienceLabel(): string {
