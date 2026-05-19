@@ -4,6 +4,7 @@ import com.recruitment.common.enums.ContractType;
 import com.recruitment.common.enums.ExperienceLevel;
 import com.recruitment.common.enums.JobOfferStatus;
 import com.recruitment.jobs.entity.JobOffer;
+import java.math.BigDecimal;
 import java.util.UUID;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -52,6 +53,13 @@ public final class JobOfferSpecification {
             return null;
         }
         return (root, query, cb) -> cb.equal(root.get("remoteAllowed"), remoteAllowed);
+    }
+
+    public static Specification<JobOffer> hasSalaryMin(BigDecimal salaryMin) {
+        if (salaryMin == null) {
+            return null;
+        }
+        return (root, query, cb) -> cb.greaterThanOrEqualTo(root.get("salaryMax"), salaryMin);
     }
 
     public static Specification<JobOffer> hasCompanyId(UUID companyId) {
