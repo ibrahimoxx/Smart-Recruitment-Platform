@@ -16,6 +16,7 @@ import com.recruitment.users.entity.Company;
 import com.recruitment.users.entity.RecruiterProfile;
 import com.recruitment.users.repository.CompanyRepository;
 import com.recruitment.users.repository.RecruiterProfileRepository;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -73,6 +74,7 @@ public class JobOfferService {
             Boolean remoteAllowed,
             UUID companyId,
             UUID recruiterId,
+            BigDecimal salaryMin,
             Pageable pageable
     ) {
         return PagedResponse.of(
@@ -85,7 +87,8 @@ public class JobOfferService {
                                 location,
                                 remoteAllowed,
                                 companyId,
-                                recruiterId
+                                recruiterId,
+                                salaryMin
                         ),
                         pageable
                 ).map(JobOfferResponse::from)

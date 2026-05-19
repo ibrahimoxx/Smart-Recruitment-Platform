@@ -84,7 +84,8 @@ public final class JobOfferSpecification {
             String location,
             Boolean remoteAllowed,
             UUID companyId,
-            UUID recruiterId
+            UUID recruiterId,
+            BigDecimal salaryMin
     ) {
         return Specification.where(hasTitle(title))
                 .and(hasStatus(status))
@@ -93,6 +94,7 @@ public final class JobOfferSpecification {
                 .and(hasLocation(location))
                 .and(isRemoteAllowed(remoteAllowed))
                 .and(hasCompanyId(companyId))
-                .and(hasRecruiterId(recruiterId));
+                .and(hasRecruiterId(recruiterId))
+                .and(hasSalaryMin(salaryMin));
     }
 }
