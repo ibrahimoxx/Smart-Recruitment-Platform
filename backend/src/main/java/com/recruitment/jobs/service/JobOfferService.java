@@ -6,6 +6,7 @@ import com.recruitment.common.enums.ContractType;
 import com.recruitment.common.enums.ExperienceLevel;
 import com.recruitment.common.enums.JobOfferStatus;
 import com.recruitment.common.enums.Role;
+import com.recruitment.common.enums.WorkMode;
 import com.recruitment.common.exception.AppException;
 import com.recruitment.jobs.dto.JobOfferRequest;
 import com.recruitment.jobs.dto.JobOfferResponse;
@@ -48,6 +49,7 @@ public class JobOfferService {
                 request.responsibilities(),
                 request.location(),
                 request.remoteAllowed(),
+                request.workMode(),
                 request.salaryMin(),
                 request.salaryMax(),
                 request.currency(),
@@ -110,6 +112,7 @@ public class JobOfferService {
                 request.responsibilities(),
                 request.location(),
                 request.remoteAllowed(),
+                request.workMode(),
                 request.salaryMin(),
                 request.salaryMax(),
                 request.currency(),

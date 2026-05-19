@@ -3,6 +3,7 @@ package com.recruitment.jobs.repository;
 import com.recruitment.common.enums.ContractType;
 import com.recruitment.common.enums.ExperienceLevel;
 import com.recruitment.common.enums.JobOfferStatus;
+import com.recruitment.common.enums.WorkMode;
 import com.recruitment.jobs.entity.JobOffer;
 import java.math.BigDecimal;
 import java.util.UUID;
