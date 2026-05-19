@@ -2,6 +2,7 @@ package com.recruitment.jobs.dto;
 
 import com.recruitment.common.enums.ContractType;
 import com.recruitment.common.enums.ExperienceLevel;
+import com.recruitment.common.enums.WorkMode;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -15,6 +16,7 @@ public record JobOfferRequest(
         String responsibilities,
         String location,
         boolean remoteAllowed,
+        WorkMode workMode,
         BigDecimal salaryMin,
         BigDecimal salaryMax,
         String currency,

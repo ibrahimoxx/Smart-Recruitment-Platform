@@ -3,6 +3,7 @@ package com.recruitment.jobs.dto;
 import com.recruitment.common.enums.ContractType;
 import com.recruitment.common.enums.ExperienceLevel;
 import com.recruitment.common.enums.JobOfferStatus;
+import com.recruitment.common.enums.WorkMode;
 import com.recruitment.jobs.entity.JobOffer;
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -21,6 +22,7 @@ public record JobOfferResponse(
         String responsibilities,
         String location,
         boolean remoteAllowed,
+        WorkMode workMode,
         BigDecimal salaryMin,
         BigDecimal salaryMax,
         String currency,

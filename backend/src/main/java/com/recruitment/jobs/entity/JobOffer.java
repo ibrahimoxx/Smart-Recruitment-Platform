@@ -4,6 +4,7 @@ import com.recruitment.common.BaseEntity;
 import com.recruitment.common.enums.ContractType;
 import com.recruitment.common.enums.ExperienceLevel;
 import com.recruitment.common.enums.JobOfferStatus;
+import com.recruitment.common.enums.WorkMode;
 import com.recruitment.common.exception.AppException;
 import com.recruitment.users.entity.Company;
 import com.recruitment.users.entity.RecruiterProfile;
@@ -54,6 +55,10 @@ public class JobOffer extends BaseEntity {
     @Column(name = "remote_allowed", nullable = false)
     private boolean remoteAllowed;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "work_mode", nullable = false, length = 32)
+    private WorkMode workMode;
+
     @Column(name = "salary_min", precision = 12, scale = 2)
     private BigDecimal salaryMin;
 
@@ -90,6 +95,7 @@ public class JobOffer extends BaseEntity {
             String responsibilities,
             String location,
             boolean remoteAllowed,
+            WorkMode workMode,
             BigDecimal salaryMin,
             BigDecimal salaryMax,
             String currency,
@@ -106,6 +112,7 @@ public class JobOffer extends BaseEntity {
         offer.responsibilities = responsibilities;
         offer.location = location;
         offer.remoteAllowed = remoteAllowed;
+        offer.workMode = workMode != null ? workMode : WorkMode.ON_SITE;
         offer.salaryMin = salaryMin;
         offer.salaryMax = salaryMax;
         offer.currency = currency;
@@ -123,6 +130,7 @@ public class JobOffer extends BaseEntity {
             String responsibilities,
             String location,
             boolean remoteAllowed,
+            WorkMode workMode,
             BigDecimal salaryMin,
             BigDecimal salaryMax,
             String currency,
@@ -136,6 +144,7 @@ public class JobOffer extends BaseEntity {
         this.responsibilities = responsibilities;
         this.location = location;
         this.remoteAllowed = remoteAllowed;
+        this.workMode = workMode != null ? workMode : WorkMode.ON_SITE;
         this.salaryMin = salaryMin;
         this.salaryMax = salaryMax;
         this.currency = currency;
