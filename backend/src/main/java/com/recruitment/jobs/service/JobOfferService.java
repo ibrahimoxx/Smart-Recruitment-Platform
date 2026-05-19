@@ -74,6 +74,7 @@ public class JobOfferService {
             ExperienceLevel experienceLevel,
             String location,
             Boolean remoteAllowed,
+            WorkMode workMode,
             UUID companyId,
             UUID recruiterId,
             BigDecimal salaryMin,
@@ -88,6 +89,7 @@ public class JobOfferService {
                                 experienceLevel,
                                 location,
                                 remoteAllowed,
+                                workMode,
                                 companyId,
                                 recruiterId,
                                 salaryMin

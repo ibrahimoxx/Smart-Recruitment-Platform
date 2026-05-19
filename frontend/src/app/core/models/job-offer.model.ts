@@ -1,6 +1,7 @@
 export type JobOfferStatus = 'DRAFT' | 'PUBLISHED' | 'CLOSED';
 export type ContractType = 'CDI' | 'CDD' | 'PART_TIME' | 'INTERNSHIP' | 'FREELANCE';
 export type ExperienceLevel = 'JUNIOR' | 'MID' | 'SENIOR' | 'LEAD';
+export type WorkMode = 'REMOTE' | 'HYBRID' | 'ON_SITE';
 
 export interface JobOffer {
   id: string;

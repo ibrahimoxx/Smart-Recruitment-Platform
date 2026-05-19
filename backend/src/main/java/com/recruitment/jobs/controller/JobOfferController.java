@@ -12,6 +12,7 @@ import com.recruitment.jobs.dto.JobOfferRequest;
 import com.recruitment.jobs.dto.JobOfferResponse;
 import com.recruitment.jobs.dto.JobOfferStatusRequest;
 import com.recruitment.jobs.service.JobOfferService;
+import com.recruitment.common.enums.WorkMode;
 import jakarta.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
@@ -59,6 +60,7 @@ public class JobOfferController {
             @RequestParam(required = false) ExperienceLevel experienceLevel,
             @RequestParam(required = false) String location,
             @RequestParam(required = false) Boolean remoteAllowed,
+            @RequestParam(required = false) WorkMode workMode,
             @RequestParam(required = false) UUID companyId,
             @RequestParam(required = false) UUID recruiterId,
             @RequestParam(required = false) BigDecimal salaryMin,
@@ -70,6 +72,7 @@ public class JobOfferController {
                 experienceLevel,
                 location,
                 remoteAllowed,
+                workMode,
                 companyId,
                 recruiterId,
                 salaryMin,

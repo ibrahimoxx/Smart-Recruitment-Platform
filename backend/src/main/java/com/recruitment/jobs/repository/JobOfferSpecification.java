@@ -56,6 +56,13 @@ public final class JobOfferSpecification {
         return (root, query, cb) -> cb.equal(root.get("remoteAllowed"), remoteAllowed);
     }
 
+    public static Specification<JobOffer> hasWorkMode(WorkMode workMode) {
+        if (workMode == null) {
+            return null;
+        }
+        return (root, query, cb) -> cb.equal(root.get("workMode"), workMode);
+    }
+
     public static Specification<JobOffer> hasSalaryMin(BigDecimal salaryMin) {
         if (salaryMin == null) {
             return null;
@@ -84,6 +91,7 @@ public final class JobOfferSpecification {
             ExperienceLevel experienceLevel,
             String location,
             Boolean remoteAllowed,
+            WorkMode workMode,
             UUID companyId,
             UUID recruiterId,
             BigDecimal salaryMin
@@ -94,6 +102,7 @@ public final class JobOfferSpecification {
                 .and(hasExperienceLevel(experienceLevel))
                 .and(hasLocation(location))
                 .and(isRemoteAllowed(remoteAllowed))
+                .and(hasWorkMode(workMode))
                 .and(hasCompanyId(companyId))
                 .and(hasRecruiterId(recruiterId))
                 .and(hasSalaryMin(salaryMin));
