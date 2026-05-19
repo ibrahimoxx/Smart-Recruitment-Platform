@@ -15,7 +15,7 @@ export class JobService {
       .set('page', filter.page ?? 0)
       .set('size', filter.size ?? 20);
 
-    if (filter.search) params = params.set('search', filter.search);
+    if (filter.search) params = params.set('title', filter.search);
     if (filter.contractType) params = params.set('contractType', filter.contractType);
     if (filter.experienceLevel) params = params.set('experienceLevel', filter.experienceLevel);
     if (filter.remote !== undefined) params = params.set('remoteAllowed', filter.remote);
