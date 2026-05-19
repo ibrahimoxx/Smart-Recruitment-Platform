@@ -4,7 +4,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { JobService } from '../../../core/services/job.service';
 import { ToastService } from '../../../shared/ui/toast.service';
-import { JobOfferRequest, ContractType, ExperienceLevel } from '../../../core/models/job-offer.model';
+import { JobOfferRequest, ContractType, ExperienceLevel, WorkMode } from '../../../core/models/job-offer.model';
 import { GlassInputComponent } from '../../../shared/ui/glass-input.component';
 import { GlassTextareaComponent } from '../../../shared/ui/glass-textarea.component';
 import { GlassSelectComponent } from '../../../shared/ui/glass-select.component';
@@ -56,9 +56,7 @@ import { MagneticButtonComponent } from '../../../shared/ui/magnetic-button.comp
               </div>
               <div class="grid grid-cols-2 gap-4">
                 <app-glass-input formControlName="location" label="Location" placeholder="Paris, France" />
-                <div class="flex items-end pb-1">
-                  <app-glass-checkbox formControlName="remote" label="Remote-friendly" />
-                </div>
+                <app-glass-select formControlName="workMode" label="Work mode" [options]="workModeOptions" />
               </div>
             </div>
 
@@ -219,6 +217,12 @@ export class JobFormComponent implements OnInit {
     { value: 'LEAD',   label: 'Lead' },
   ];
 
+  workModeOptions = [
+    { value: 'REMOTE',  label: '🌐 Remote' },
+    { value: 'HYBRID',  label: '🏠 Hybrid' },
+    { value: 'ON_SITE', label: '🏢 On-site' },
+  ];
+
   currencyOptions = [
     { value: 'USD', label: 'USD' },
     { value: 'EUR', label: 'EUR' },
@@ -294,6 +298,7 @@ export class JobFormComponent implements OnInit {
       requirements:    v.requirements ?? '',
       location:        v.location ?? '',
       remote:          v.remote ?? false,
+      workMode:        (v.workMode as WorkMode) ?? 'ON_SITE',
       contractType:    v.contractType as ContractType,
       experienceLevel: v.experienceLevel as ExperienceLevel,
       salaryMin:       v.salaryMin ?? undefined,
