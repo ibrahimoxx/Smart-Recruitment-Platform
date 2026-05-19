@@ -85,7 +85,7 @@ type StatusAction = { label: string; status: JobOfferStatus; style: string };
               <div class="flex flex-wrap gap-1.5">
                 <span class="tag">{{ contractLabel(job) }}</span>
                 <span class="tag">{{ expLabel(job) }}</span>
-                @if (job.remote) { <span class="tag tag-green">Remote</span> }
+                <span class="tag tag-green">{{ workModeLabel(job) }}</span>
               </div>
 
               <!-- Salary -->
@@ -213,6 +213,10 @@ export class MyJobsComponent implements OnInit {
 
   expLabel(j: JobOffer): string {
     return ({ JUNIOR: 'Junior', MID: 'Mid', SENIOR: 'Senior', LEAD: 'Lead' })[j.experienceLevel] ?? j.experienceLevel;
+  }
+
+  workModeLabel(j: JobOffer): string {
+    return ({ REMOTE: '🌐 Remote', HYBRID: '🏠 Hybrid', ON_SITE: '🏢 On-site' })[j.workMode] ?? j.workMode;
   }
 
   salaryDisplay(j: JobOffer): string {
