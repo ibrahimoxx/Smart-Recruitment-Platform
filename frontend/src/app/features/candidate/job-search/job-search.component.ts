@@ -142,7 +142,7 @@ interface ActiveFilter { key: string; label: string; }
                 />
               </div>
               <p class="text-xs text-white/40 mt-1">
-                {{ salaryMin > 0 ? '≥ ' + formatK(salaryMin) + ' USD' : 'Any salary' }}
+                {{ salaryMin > 0 ? '≥ ' + formatK(salaryMin) + ' EUR' : 'Any salary' }}
               </p>
             </div>
           </div>
@@ -301,7 +301,7 @@ interface ActiveFilter { key: string; label: string; }
               <input type="range" min="0" max="200000" step="5000"
                 [(ngModel)]="salaryMin" (change)="onSalaryChange()"
                 class="salary-slider w-full" aria-label="Minimum salary" />
-              <p class="text-xs text-white/40 mt-1">{{ salaryMin > 0 ? '≥ ' + formatK(salaryMin) + ' USD' : 'Any salary' }}</p>
+              <p class="text-xs text-white/40 mt-1">{{ salaryMin > 0 ? '≥ ' + formatK(salaryMin) + ' EUR' : 'Any salary' }}</p>
             </div>
             <!-- Apply button -->
             <button type="button" (click)="mobileFiltersOpen.set(false)" class="btn-primary w-full mt-2">
@@ -383,7 +383,7 @@ export class JobSearchComponent implements OnInit, OnDestroy {
     if (this.filter.remote)
       f.push({ key: 'remote', label: '🌐 Remote' });
     if (this.filter.salaryMin && this.filter.salaryMin > 0)
-      f.push({ key: 'salaryMin', label: `≥ ${this.formatK(this.filter.salaryMin)} USD` });
+      f.push({ key: 'salaryMin', label: `≥ ${this.formatK(this.filter.salaryMin)} EUR` });
     if (this.filter.search)
       f.push({ key: 'search', label: `"${this.filter.search}"` });
     return f;
