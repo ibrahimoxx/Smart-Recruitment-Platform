@@ -40,7 +40,7 @@ import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
       <div class="flex flex-wrap gap-1.5">
         <span class="tag">{{ contractLabel }}</span>
         <span class="tag">{{ experienceLabel }}</span>
-        @if (job.remote) { <span class="tag tag-green">Remote</span> }
+        <span class="tag tag-green">{{ workModeLabel }}</span>
         @if (job.location) { <span class="tag">{{ job.location }}</span> }
       </div>
 
@@ -104,6 +104,13 @@ export class JobCardComponent {
     const map: Record<string, string> = {
       CDI: 'CDI', CDD: 'CDD', PART_TIME: 'Part-time',
       INTERNSHIP: 'Internship', FREELANCE: 'Freelance',
+    };
+    return map[this.job.contractType] ?? this.job.contractType;
+  }
+
+  get workModeLabel(): string {
+    const map: Record<string, string> = {
+      REMOTE: '🌐 Remote', HYBRID: '🏠 Hybrid', ON_SITE: '🏢 On-site',
     };
     return map[this.job.contractType] ?? this.job.contractType;
   }
