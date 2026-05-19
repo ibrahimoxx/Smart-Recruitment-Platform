@@ -18,7 +18,7 @@ export class JobService {
     if (filter.search) params = params.set('search', filter.search);
     if (filter.contractType) params = params.set('contractType', filter.contractType);
     if (filter.experienceLevel) params = params.set('experienceLevel', filter.experienceLevel);
-    if (filter.remote !== undefined) params = params.set('remote', filter.remote);
+    if (filter.remote !== undefined) params = params.set('remoteAllowed', filter.remote);
     if (filter.location) params = params.set('location', filter.location);
     if (filter.salaryMin !== undefined) params = params.set('salaryMin', filter.salaryMin);
     if (filter.salaryMax !== undefined) params = params.set('salaryMax', filter.salaryMax);
