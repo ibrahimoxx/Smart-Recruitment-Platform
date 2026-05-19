@@ -291,13 +291,18 @@ interface ActiveFilter { key: string; label: string; }
                 }
               </div>
             </div>
-            <!-- Remote -->
+            <!-- Work mode -->
             <div>
               <h3 class="text-xs font-semibold text-white/40 uppercase tracking-wider mb-3">Work mode</h3>
-              <button type="button" (click)="toggleRemote()"
-                class="filter-chip w-full" [class.filter-chip-active]="filter.remote === true">
-                🌐 Remote only
-              </button>
+              <div class="flex flex-col gap-1.5">
+                @for (wm of workModes; track wm.value) {
+                  <button type="button"
+                    (click)="toggleWorkMode(wm.value)"
+                    class="filter-chip" [class.filter-chip-active]="filter.workMode === wm.value">
+                    {{ wm.label }}
+                  </button>
+                }
+              </div>
             </div>
             <!-- Salary -->
             <div>
@@ -378,14 +383,20 @@ export class JobSearchComponent implements OnInit, OnDestroy {
     { value: 'LEAD',   label: '👑 Lead' },
   ];
 
+  workModes: { value: WorkMode; label: string }[] = [
+    { value: 'REMOTE',  label: '🌐 Remote' },
+    { value: 'HYBRID',  label: '🏠 Hybrid' },
+    { value: 'ON_SITE', label: '🏢 On-site' },
+  ];
+
   activeFilters = computed<ActiveFilter[]>(() => {
     const f: ActiveFilter[] = [];
     if (this.filter.contractType)
       f.push({ key: 'contractType', label: this.contractTypes.find(c => c.value === this.filter.contractType)?.label ?? '' });
     if (this.filter.experienceLevel)
       f.push({ key: 'experienceLevel', label: this.experienceLevels.find(e => e.value === this.filter.experienceLevel)?.label ?? '' });
-    if (this.filter.remote)
-      f.push({ key: 'remote', label: '🌐 Remote' });
+    if (this.filter.workMode)
+      f.push({ key: 'workMode', label: this.workModes.find(w => w.value === this.filter.workMode)?.label ?? '' });
     if (this.filter.salaryMin && this.filter.salaryMin > 0)
       f.push({ key: 'salaryMin', label: `≥ ${this.formatK(this.filter.salaryMin)} EUR` });
     if (this.filter.search)
@@ -439,8 +450,8 @@ export class JobSearchComponent implements OnInit, OnDestroy {
     this.load();
   }
 
-  toggleRemote(): void {
-    this.filter = { ...this.filter, remote: this.filter.remote ? undefined : true, page: 0 };
+  toggleWorkMode(wm: WorkMode): void {
+    this.filter = { ...this.filter, workMode: this.filter.workMode === wm ? undefined : wm, page: 0 };
     this.load();
   }
 
@@ -464,7 +475,7 @@ export class JobSearchComponent implements OnInit, OnDestroy {
     const update: JobOfferFilter = { ...this.filter, page: 0 };
     if (key === 'contractType')   delete update.contractType;
     if (key === 'experienceLevel') delete update.experienceLevel;
-    if (key === 'remote')         delete update.remote;
+    if (key === 'workMode')        delete update.workMode;
     if (key === 'salaryMin')      { delete update.salaryMin; this.salaryMin = 0; }
     if (key === 'search')         { delete update.search; this.searchQuery = ''; }
     this.filter = update;
