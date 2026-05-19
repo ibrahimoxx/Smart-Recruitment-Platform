@@ -404,8 +404,8 @@ export class JobDetailComponent implements OnInit, OnDestroy {
 
   contractLabel = computed(() => {
     const map: Record<string, string> = {
-      FULL_TIME: 'Full-time', PART_TIME: 'Part-time',
-      CONTRACT: 'Contract', INTERNSHIP: 'Internship', FREELANCE: 'Freelance',
+      CDI: 'CDI', CDD: 'CDD', PART_TIME: 'Part-time',
+      INTERNSHIP: 'Internship', FREELANCE: 'Freelance',
     };
     return map[this.job()?.contractType ?? ''] ?? '';
   });

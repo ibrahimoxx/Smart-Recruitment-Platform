@@ -102,15 +102,15 @@ export class JobCardComponent {
 
   get contractLabel(): string {
     const map: Record<string, string> = {
-      FULL_TIME: 'Full-time', PART_TIME: 'Part-time',
-      CONTRACT: 'Contract', INTERNSHIP: 'Internship', FREELANCE: 'Freelance',
+      CDI: 'CDI', CDD: 'CDD', PART_TIME: 'Part-time',
+      INTERNSHIP: 'Internship', FREELANCE: 'Freelance',
     };
     return map[this.job.contractType] ?? this.job.contractType;
   }
 
   get experienceLabel(): string {
     const map: Record<string, string> = {
-      JUNIOR: 'Junior', MID: 'Mid', SENIOR: 'Senior', LEAD: 'Lead', EXECUTIVE: 'Executive',
+      JUNIOR: 'Junior', MID: 'Mid', SENIOR: 'Senior', LEAD: 'Lead',
     };
     return map[this.job.experienceLevel] ?? this.job.experienceLevel;
   }
