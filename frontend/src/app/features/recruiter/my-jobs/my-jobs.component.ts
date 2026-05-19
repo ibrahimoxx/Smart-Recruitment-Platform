@@ -208,11 +208,11 @@ export class MyJobsComponent implements OnInit {
   }
 
   contractLabel(j: JobOffer): string {
-    return ({ FULL_TIME: 'Full-time', PART_TIME: 'Part-time', CONTRACT: 'Contract', INTERNSHIP: 'Internship', FREELANCE: 'Freelance' })[j.contractType] ?? j.contractType;
+    return ({ CDI: 'CDI', CDD: 'CDD', PART_TIME: 'Part-time', INTERNSHIP: 'Internship', FREELANCE: 'Freelance' })[j.contractType] ?? j.contractType;
   }
 
   expLabel(j: JobOffer): string {
-    return ({ JUNIOR: 'Junior', MID: 'Mid', SENIOR: 'Senior', LEAD: 'Lead', EXECUTIVE: 'Executive' })[j.experienceLevel] ?? j.experienceLevel;
+    return ({ JUNIOR: 'Junior', MID: 'Mid', SENIOR: 'Senior', LEAD: 'Lead' })[j.experienceLevel] ?? j.experienceLevel;
   }
 
   salaryDisplay(j: JobOffer): string {

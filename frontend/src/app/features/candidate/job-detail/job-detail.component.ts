@@ -413,7 +413,7 @@ export class JobDetailComponent implements OnInit, OnDestroy {
   experienceLabel = computed(() => {
     const map: Record<string, string> = {
       JUNIOR: 'Junior', MID: 'Mid-level', SENIOR: 'Senior',
-      LEAD: 'Lead', EXECUTIVE: 'Executive',
+      LEAD: 'Lead',
     };
     return map[this.job()?.experienceLevel ?? ''] ?? '';
   });
