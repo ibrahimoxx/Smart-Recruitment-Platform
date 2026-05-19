@@ -13,6 +13,7 @@ import com.recruitment.jobs.dto.JobOfferResponse;
 import com.recruitment.jobs.dto.JobOfferStatusRequest;
 import com.recruitment.jobs.service.JobOfferService;
 import jakarta.validation.Valid;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
