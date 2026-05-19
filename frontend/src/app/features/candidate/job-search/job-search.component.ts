@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 import { JobService } from '../../../core/services/job.service';
-import { JobOffer, ContractType, ExperienceLevel, JobOfferFilter } from '../../../core/models/job-offer.model';
+import { JobOffer, ContractType, ExperienceLevel, WorkMode, JobOfferFilter } from '../../../core/models/job-offer.model';
 import { PagedResponse } from '../../../core/models/api-response.model';
 import { JobCardComponent } from '../../../shared/components/job-card/job-card.component';
 import { JobCardSkeletonComponent } from '../../../shared/components/loading-states/job-card-skeleton.component';
@@ -122,11 +122,15 @@ interface ActiveFilter { key: string; label: string; }
             <!-- Remote -->
             <div>
               <h3 class="text-xs font-semibold text-white/40 uppercase tracking-wider mb-3">Work mode</h3>
-              <button type="button"
-                (click)="toggleRemote()"
-                class="filter-chip w-full" [class.filter-chip-active]="filter.remote === true">
-                🌐 Remote only
-              </button>
+              <div class="flex flex-col gap-1.5">
+                @for (wm of workModes; track wm.value) {
+                  <button type="button"
+                    (click)="toggleWorkMode(wm.value)"
+                    class="filter-chip" [class.filter-chip-active]="filter.workMode === wm.value">
+                    {{ wm.label }}
+                  </button>
+                }
+              </div>
             </div>
 
             <!-- Salary -->
