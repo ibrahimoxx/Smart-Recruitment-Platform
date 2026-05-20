@@ -65,6 +65,9 @@ import { CommonModule } from '@angular/common';
       border-color: rgba(124,58,237,0.4) !important;
       box-shadow: 0 0 12px rgba(124,58,237,0.3);
     }
+    :host-context(html.light) .pagination-btn { color: rgba(10,10,30,0.60); }
+    :host-context(html.light) .pagination-btn:hover { color: rgba(10,10,30,0.95); }
+    :host-context(html.light) .pagination-active { color: white; }
   `],
 })
 export class PaginationComponent {

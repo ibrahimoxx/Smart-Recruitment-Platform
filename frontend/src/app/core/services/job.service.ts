@@ -23,6 +23,7 @@ export class JobService {
     if (filter.location) params = params.set('location', filter.location);
     if (filter.salaryMin !== undefined) params = params.set('salaryMin', filter.salaryMin);
     if (filter.salaryMax !== undefined) params = params.set('salaryMax', filter.salaryMax);
+    if (filter.recruiterId) params = params.set('recruiterId', filter.recruiterId);
     if (filter.sort) params = params.set('sort', filter.sort);
 
     return this.http.get<ApiResponse<PagedResponse<JobOffer>>>(this.api, { params });

@@ -18,7 +18,8 @@ export interface JobOffer {
   currency?: string;
   status: JobOfferStatus;
   closesAt?: string;
-  recruiterName: string;
+  recruiterFirstName: string;
+  recruiterLastName: string;
   companyName?: string;
   companyId?: string;
   applicationCount?: number;
@@ -50,6 +51,7 @@ export interface JobOfferFilter {
   location?: string;
   salaryMin?: number;
   salaryMax?: number;
+  recruiterId?: string;
   page?: number;
   size?: number;
   sort?: string;

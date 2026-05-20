@@ -103,6 +103,14 @@ public class ApplicationService {
         return ApplicationResponse.from(findApplicationForUser(user, id));
     }
 
+    @Transactional(readOnly = true)
+    public boolean hasApplied(User user, UUID jobOfferId) {
+        CandidateProfile candidate = candidateProfileRepository.findByUserId(user.getId())
+                .orElse(null);
+        if (candidate == null) return false;
+        return applicationRepository.existsByCandidateIdAndJobOfferId(candidate.getId(), jobOfferId);
+    }
+
     public ApplicationResponse changeStatus(User user, UUID id, ApplicationStatus newStatus) {
         Application application = switch (user.getRole()) {
             case ADMIN -> applicationRepository.findById(id)

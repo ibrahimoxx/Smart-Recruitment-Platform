@@ -3,10 +3,10 @@ export type ApplicationStatus = 'PENDING' | 'INTERVIEW' | 'ACCEPTED' | 'REJECTED
 export interface Application {
   id: string;
   candidateId: string;
-  candidateName: string;
-  candidateEmail: string;
+  candidateFirstName: string;
+  candidateLastName: string;
   jobOfferId: string;
-  jobOfferTitle: string;
+  jobTitle: string;
   companyName?: string;
   status: ApplicationStatus;
   coverLetter?: string;
@@ -21,5 +21,5 @@ export interface ApplicationRequest {
 }
 
 export interface ApplicationStatusRequest {
-  newStatus: ApplicationStatus;
+  status: ApplicationStatus;
 }

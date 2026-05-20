@@ -81,14 +81,14 @@ type FilterStatus = ApplicationStatus | 'ALL';
                 <!-- Company initial -->
                 <div class="w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold text-white flex-shrink-0"
                   style="background:linear-gradient(135deg,rgba(124,58,237,0.2),rgba(236,72,153,0.2))">
-                  {{ (app.companyName || app.jobOfferTitle)[0].toUpperCase() }}
+                  {{ (app.companyName || app.jobTitle)[0].toUpperCase() }}
                 </div>
 
                 <div class="flex-1 min-w-0">
                   <div class="flex items-start justify-between gap-3">
                     <div>
                       <h3 class="font-semibold text-white text-sm group-hover:text-aurora-violet-light transition-colors">
-                        {{ app.jobOfferTitle }}
+                        {{ app.jobTitle }}
                       </h3>
                       @if (app.companyName) {
                         <p class="text-xs text-white/40 mt-0.5">{{ app.companyName }}</p>
@@ -167,7 +167,7 @@ type FilterStatus = ApplicationStatus | 'ALL';
           <h3 class="text-base font-bold text-white mb-2">Withdraw application?</h3>
           <p class="text-sm text-white/50 mb-6">
             You're about to withdraw your application for
-            <strong class="text-white/80">{{ withdrawTarget()!.jobOfferTitle }}</strong>.
+            <strong class="text-white/80">{{ withdrawTarget()!.jobTitle }}</strong>.
             This cannot be undone.
           </p>
           <div class="flex gap-3">

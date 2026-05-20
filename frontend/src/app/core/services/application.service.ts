@@ -36,6 +36,12 @@ export class ApplicationService {
     return this.http.patch<ApiResponse<Application>>(`${this.api}/${id}/status`, request);
   }
 
+  hasApplied(jobOfferId: string) {
+    return this.http.get<ApiResponse<boolean>>(`${this.api}/check`, {
+      params: new HttpParams().set('jobOfferId', jobOfferId)
+    });
+  }
+
   withdraw(id: string) {
     return this.http.delete<ApiResponse<void>>(`${this.api}/${id}`);
   }

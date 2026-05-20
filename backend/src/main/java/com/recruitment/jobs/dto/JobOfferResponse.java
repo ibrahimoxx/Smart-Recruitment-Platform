@@ -32,9 +32,14 @@ public record JobOfferResponse(
         Instant publishedAt,
         Instant closesAt,
         Instant createdAt,
-        Instant updatedAt
+        Instant updatedAt,
+        long applicationCount
 ) {
     public static JobOfferResponse from(JobOffer offer) {
+        return from(offer, 0L);
+    }
+
+    public static JobOfferResponse from(JobOffer offer, long applicationCount) {
         return new JobOfferResponse(
                 offer.getId(),
                 offer.getRecruiter().getId(),
@@ -58,7 +63,8 @@ public record JobOfferResponse(
                 offer.getPublishedAt(),
                 offer.getClosesAt(),
                 offer.getCreatedAt(),
-                offer.getUpdatedAt()
+                offer.getUpdatedAt(),
+                applicationCount
         );
     }
 }

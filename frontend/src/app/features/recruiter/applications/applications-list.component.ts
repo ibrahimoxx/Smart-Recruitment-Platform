@@ -79,12 +79,12 @@ const TRANSITIONS: Record<ApplicationStatus, ApplicationStatus[]> = {
                 <!-- Avatar -->
                 <div class="w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold text-white flex-shrink-0"
                   style="background:linear-gradient(135deg,rgba(124,58,237,0.25),rgba(236,72,153,0.25))">
-                  {{ app.candidateName[0].toUpperCase() }}
+                  {{ app.candidateFirstName[0].toUpperCase() }}
                 </div>
 
                 <div class="flex-1 min-w-0">
-                  <p class="font-semibold text-white text-sm">{{ app.candidateName }}</p>
-                  <p class="text-xs text-white/40">{{ app.candidateEmail }} · {{ app.appliedAt | timeAgo }}</p>
+                  <p class="font-semibold text-white text-sm">{{ app.candidateFirstName }} {{ app.candidateLastName }}</p>
+                  <p class="text-xs text-white/40">{{ app.appliedAt | timeAgo }}</p>
                 </div>
 
                 <!-- Inline score gauge -->
@@ -386,7 +386,7 @@ export class ApplicationsListComponent implements OnInit {
   }
 
   changeStatus(app: Application, status: ApplicationStatus): void {
-    this.appService.changeStatus(app.id, { newStatus: status }).subscribe({
+    this.appService.changeStatus(app.id, { status }).subscribe({
       next: res => {
         this.applications.update(list => list.map(a => a.id === app.id ? res.data : a));
         this.toast.success(`Status updated to ${status.toLowerCase()}.`);

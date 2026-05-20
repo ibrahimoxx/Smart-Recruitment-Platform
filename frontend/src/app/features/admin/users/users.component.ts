@@ -60,9 +60,9 @@ import { TimeAgoPipe } from '../../../shared/pipes/time-ago.pipe';
           <p class="text-white/40 text-sm">No users found.</p>
         </div>
       } @else {
-        <div class="glass rounded-2xl border border-glass overflow-hidden">
+        <div class="glass rounded-2xl border border-glass overflow-visible">
           <!-- Table header -->
-          <div class="grid grid-cols-[1fr_160px_120px_100px] gap-4 px-5 py-3 border-b border-glass">
+          <div class="grid grid-cols-[1fr_160px_120px_100px] gap-4 px-5 py-3 border-b border-glass rounded-t-2xl overflow-hidden">
             <span class="text-xs text-white/30 uppercase tracking-wider">User</span>
             <span class="text-xs text-white/30 uppercase tracking-wider hidden sm:block">Joined</span>
             <span class="text-xs text-white/30 uppercase tracking-wider">Role</span>
@@ -107,7 +107,7 @@ import { TimeAgoPipe } from '../../../shared/pipes/time-ago.pipe';
                       </svg>
                     </button>
                     @if (roleMenuId() === user.id) {
-                      <div class="absolute right-0 top-full mt-1 w-36 glass-strong rounded-xl shadow-glass-lg overflow-hidden animate-scale-in z-10" role="menu">
+                      <div class="absolute right-0 top-full mt-1 w-36 glass-strong rounded-xl shadow-glass-lg overflow-hidden animate-scale-in z-50" role="menu">
                         @for (role of otherRoles(user.role); track role) {
                           <button type="button" (click)="confirmRoleChange(user, role)"
                             class="w-full text-left px-3 py-2.5 text-xs transition-colors hover:bg-white/[0.06] text-white/70 hover:text-white"

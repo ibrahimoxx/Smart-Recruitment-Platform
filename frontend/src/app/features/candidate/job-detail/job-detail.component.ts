@@ -73,7 +73,7 @@ import { MagneticButtonComponent } from '../../../shared/ui/magnetic-button.comp
                       {{ job()!.title }}
                     </h1>
                     <p class="text-lg text-white/50">
-                      {{ job()!.companyName || job()!.recruiterName }}
+                      {{ job()!.companyName || job()!.recruiterFirstName + ' ' + job()!.recruiterLastName }}
                       @if (job()!.location) { <span class="mx-1.5 text-white/20">·</span> {{ job()!.location }} }
                     </p>
                   </div>
@@ -121,7 +121,7 @@ import { MagneticButtonComponent } from '../../../shared/ui/magnetic-button.comp
               <div class="hidden lg:block w-72 flex-shrink-0">
                 <div class="glass-strong rounded-2xl p-5 sticky top-24 shadow-glass-lg">
                   <p class="text-sm text-white/40 mb-4">
-                    {{ job()!.companyName || job()!.recruiterName }}
+                    {{ job()!.companyName || job()!.recruiterFirstName + ' ' + job()!.recruiterLastName }}
                   </p>
                   @if (canApply()) {
                     <app-magnetic-button
@@ -130,6 +130,7 @@ import { MagneticButtonComponent } from '../../../shared/ui/magnetic-button.comp
                     >Apply now</app-magnetic-button>
                   } @else if (!auth.isLoggedIn()) {
                     <a routerLink="/login"
+                      [queryParams]="{ returnUrl: '/jobs/' + job()!.id }"
                       class="btn-primary text-sm px-4 py-3 w-full flex items-center justify-center gap-2">
                       Sign in to apply
                     </a>
@@ -203,7 +204,9 @@ import { MagneticButtonComponent } from '../../../shared/ui/magnetic-button.comp
                     (click)="openApplyModal()"
                   >Apply now</app-magnetic-button>
                 } @else if (!auth.isLoggedIn()) {
-                  <a routerLink="/login" class="btn-primary text-sm px-4 py-3 w-full flex items-center justify-center">
+                  <a routerLink="/login"
+                    [queryParams]="{ returnUrl: '/jobs/' + job()!.id }"
+                    class="btn-primary text-sm px-4 py-3 w-full flex items-center justify-center">
                     Sign in to apply
                   </a>
                 } @else if (alreadyApplied()) {
@@ -263,7 +266,7 @@ import { MagneticButtonComponent } from '../../../shared/ui/magnetic-button.comp
           <div class="flex items-start justify-between mb-6">
             <div>
               <h2 id="apply-modal-title" class="text-xl font-bold text-white">Apply for this role</h2>
-              <p class="text-sm text-white/40 mt-0.5">{{ job()!.title }} · {{ job()!.companyName || job()!.recruiterName }}</p>
+              <p class="text-sm text-white/40 mt-0.5">{{ job()!.title }} · {{ job()!.companyName || job()!.recruiterFirstName + ' ' + job()!.recruiterLastName }}</p>
             </div>
             <button type="button" (click)="closeApplyModal()"
               class="p-2 rounded-xl text-white/40 hover:text-white hover:bg-white/[0.08] transition-all" aria-label="Close">
@@ -358,9 +361,18 @@ import { MagneticButtonComponent } from '../../../shared/ui/magnetic-button.comp
       border: 1px solid rgba(255,255,255,0.08);
     }
     .tag-green { color: #34D399; background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.2); }
-    .prose-aurora {
-      @apply text-white/70 text-sm leading-relaxed space-y-3;
+    .prose-aurora { @apply text-white/70 text-sm leading-relaxed space-y-3; }
+    :host-context(html.light) .tag {
+      color: rgba(10,10,30,0.65);
+      background: rgba(10,10,30,0.05);
+      border-color: rgba(10,10,30,0.10);
     }
+    :host-context(html.light) .prose-aurora { color: rgba(10,10,30,0.72); }
+    :host-context(html.light) .prose-aurora h1,
+    :host-context(html.light) .prose-aurora h2,
+    :host-context(html.light) .prose-aurora h3,
+    :host-context(html.light) .prose-aurora strong { color: rgba(10,10,30,0.90); }
+    :host-context(html.light) .prose-aurora li::marker { color: rgba(10,10,30,0.40); }
   `],
 })
 export class JobDetailComponent implements OnInit, OnDestroy {
@@ -399,7 +411,7 @@ export class JobDetailComponent implements OnInit, OnDestroy {
   );
 
   companyInitial = computed(() =>
-    (this.job()?.companyName || this.job()?.recruiterName || '?')[0].toUpperCase()
+    (this.job()?.companyName || this.job()?.recruiterFirstName || '?')[0].toUpperCase()
   );
 
   contractLabel = computed(() => {
@@ -476,6 +488,12 @@ export class JobDetailComponent implements OnInit, OnDestroy {
         this.job.set(res.data);
         this.loading.set(false);
         this.loadSimilar(id);
+        if (this.auth.userRole() === 'CANDIDATE') {
+          this.appService.hasApplied(id).subscribe({
+            next: r => this.alreadyApplied.set(r.data),
+            error: () => {},
+          });
+        }
       },
       error: () => {
         this.loading.set(false);

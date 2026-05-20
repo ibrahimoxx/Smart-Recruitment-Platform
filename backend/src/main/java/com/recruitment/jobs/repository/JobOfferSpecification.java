@@ -81,7 +81,7 @@ public final class JobOfferSpecification {
         if (recruiterId == null) {
             return null;
         }
-        return (root, query, cb) -> cb.equal(root.get("recruiter").get("id"), recruiterId);
+        return (root, query, cb) -> cb.equal(root.get("recruiter").get("user").get("id"), recruiterId);
     }
 
     public static Specification<JobOffer> buildFilter(

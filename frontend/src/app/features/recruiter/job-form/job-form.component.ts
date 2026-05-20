@@ -8,7 +8,6 @@ import { JobOfferRequest, ContractType, ExperienceLevel, WorkMode } from '../../
 import { GlassInputComponent } from '../../../shared/ui/glass-input.component';
 import { GlassTextareaComponent } from '../../../shared/ui/glass-textarea.component';
 import { GlassSelectComponent } from '../../../shared/ui/glass-select.component';
-import { GlassCheckboxComponent } from '../../../shared/ui/glass-checkbox.component';
 import { MagneticButtonComponent } from '../../../shared/ui/magnetic-button.component';
 
 @Component({
@@ -17,7 +16,7 @@ import { MagneticButtonComponent } from '../../../shared/ui/magnetic-button.comp
   imports: [
     CommonModule, ReactiveFormsModule, RouterLink,
     GlassInputComponent, GlassTextareaComponent, GlassSelectComponent,
-    GlassCheckboxComponent, MagneticButtonComponent,
+    MagneticButtonComponent,
   ],
   template: `
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10">

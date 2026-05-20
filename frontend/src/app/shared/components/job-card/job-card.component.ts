@@ -17,7 +17,7 @@ import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
       class="glass glass-hover rounded-2xl p-5 flex flex-col gap-4 shadow-glass group cursor-pointer
              border border-glass hover:border-aurora-violet/30 transition-all duration-300"
       (click)="onCardClick()"
-      [attr.aria-label]="job.title + ' at ' + (job.companyName || job.recruiterName)"
+      [attr.aria-label]="job.title + ' at ' + (job.companyName || job.recruiterFirstName + ' ' + job.recruiterLastName)"
     >
       <!-- Header -->
       <div class="flex items-start justify-between gap-3">
@@ -29,7 +29,7 @@ import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
           <h3 class="font-semibold text-white text-sm leading-tight truncate group-hover:text-aurora-violet-light transition-colors">
             {{ job.title }}
           </h3>
-          <p class="text-xs text-white/50 mt-0.5 truncate">{{ job.companyName || job.recruiterName }}</p>
+          <p class="text-xs text-white/50 mt-0.5 truncate">{{ job.companyName || job.recruiterFirstName + ' ' + job.recruiterLastName }}</p>
         </div>
         @if (showStatus) {
           <app-status-badge [status]="job.status" />
@@ -89,6 +89,11 @@ import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
       border: 1px solid rgba(255,255,255,0.08);
     }
     .tag-green { color: #34D399; background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.2); }
+    :host-context(html.light) .tag {
+      color: rgba(10,10,30,0.55);
+      background: rgba(10,10,30,0.05);
+      border-color: rgba(10,10,30,0.10);
+    }
   `],
 })
 export class JobCardComponent {
@@ -97,7 +102,7 @@ export class JobCardComponent {
   @Output() cardClick = new EventEmitter<JobOffer>();
 
   get companyInitial(): string {
-    return (this.job.companyName || this.job.recruiterName || '?')[0].toUpperCase();
+    return (this.job.companyName || this.job.recruiterFirstName || '?')[0].toUpperCase();
   }
 
   get contractLabel(): string {

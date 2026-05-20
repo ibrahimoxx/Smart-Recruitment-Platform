@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { JobService } from '../../../core/services/job.service';
 import { ToastService } from '../../../shared/ui/toast.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { JobOffer, JobOfferStatus } from '../../../core/models/job-offer.model';
 import { StatusBadgeComponent } from '../../../shared/components/status-badge/status-badge.component';
 import { TimeAgoPipe } from '../../../shared/pipes/time-ago.pipe';
@@ -173,6 +174,7 @@ type StatusAction = { label: string; status: JobOfferStatus; style: string };
 })
 export class MyJobsComponent implements OnInit {
   private jobService = inject(JobService);
+  private auth = inject(AuthService);
   private toast = inject(ToastService);
   private router = inject(Router);
 
@@ -229,7 +231,8 @@ export class MyJobsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.jobService.list({ size: 100 }).subscribe({
+    const recruiterId = this.auth.currentUser()?.id;
+    this.jobService.list({ size: 100, recruiterId }).subscribe({
       next: res => {
         const data = res.data as unknown as { content: JobOffer[] };
         this.jobs.set(data.content ?? []);

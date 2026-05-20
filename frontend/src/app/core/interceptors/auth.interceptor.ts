@@ -18,7 +18,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     catchError((err: unknown) => {
       if (err instanceof HttpErrorResponse && err.status === 401) {
         tokenStorage.clear();
-        router.navigate(['/login']);
+        const returnUrl = router.routerState.snapshot.url;
+        router.navigate(['/login'], { queryParams: { returnUrl } });
       }
       return throwError(() => err);
     })

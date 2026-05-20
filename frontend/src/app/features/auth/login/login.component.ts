@@ -2,7 +2,7 @@ import {
   Component, inject, signal, computed,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, Router } from '@angular/router';
+import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
 import { ToastService } from '../../../shared/ui/toast.service';
@@ -45,7 +45,7 @@ import { MagneticButtonComponent } from '../../../shared/ui/magnetic-button.comp
           </p>
 
           <!-- Feature chips -->
-          <div class="flex flex-col gap-3">
+          <div class="flex flex-col gap-3 mb-10">
             @for (feat of features; track feat.label) {
               <div class="flex items-center gap-3">
                 <div class="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0"
@@ -56,6 +56,20 @@ import { MagneticButtonComponent } from '../../../shared/ui/magnetic-button.comp
               </div>
             }
           </div>
+
+          <!-- Browse jobs CTA -->
+          <a routerLink="/jobs"
+            class="inline-flex items-center gap-2.5 px-5 py-3 rounded-2xl text-sm font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+            style="background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.35);color:#C4B5FD;backdrop-filter:blur(8px)">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+            Browse jobs without signing in
+            <svg class="w-3.5 h-3.5 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
         </div>
       </div>
 
@@ -150,6 +164,7 @@ import { MagneticButtonComponent } from '../../../shared/ui/magnetic-button.comp
 export class LoginComponent {
   private auth = inject(AuthService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
   private toast = inject(ToastService);
   private fb = inject(FormBuilder);
 
@@ -188,6 +203,8 @@ export class LoginComponent {
     this.auth.login({ email: email!, password: password! }).subscribe({
       next: () => {
         this.toast.success('Welcome back!');
+        const returnUrl = this.route.snapshot.queryParams['returnUrl'];
+        if (returnUrl) { this.router.navigateByUrl(returnUrl); return; }
         const role = this.auth.userRole();
         if (role === 'ADMIN') this.router.navigate(['/admin/dashboard']);
         else if (role === 'RECRUITER') this.router.navigate(['/recruiter/dashboard']);

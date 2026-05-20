@@ -334,6 +334,20 @@ interface ActiveFilter { key: string; label: string; }
       background: rgba(124,58,237,0.15) !important;
       border-color: rgba(124,58,237,0.35) !important;
     }
+    :host-context(html.light) .filter-chip {
+      color: rgba(10,10,30,0.55);
+      background: rgba(10,10,30,0.04);
+      border-color: rgba(10,10,30,0.09);
+    }
+    :host-context(html.light) .filter-chip:hover {
+      color: rgba(10,10,30,0.85);
+      background: rgba(10,10,30,0.08);
+    }
+    :host-context(html.light) .filter-chip-active {
+      color: #6D28D9 !important;
+      background: rgba(109,40,217,0.10) !important;
+      border-color: rgba(109,40,217,0.28) !important;
+    }
     .salary-slider {
       -webkit-appearance: none;
       height: 2px;
@@ -349,6 +363,7 @@ interface ActiveFilter { key: string; label: string; }
       cursor: pointer;
       box-shadow: 0 0 8px rgba(124,58,237,0.5);
     }
+    :host-context(html.light) .salary-slider { background: rgba(10,10,30,0.12); }
   `],
 })
 export class JobSearchComponent implements OnInit, OnDestroy {

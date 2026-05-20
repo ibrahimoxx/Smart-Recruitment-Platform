@@ -39,17 +39,151 @@
 }
 
 /* Light mode overrides */
-.light {
-  --void: #F8F8FF;
-  --void-50: #EFEFFF;
-  --void-100: #E8E8F5;
-  --glass-bg: rgba(0, 0, 0, 0.04);
-  --glass-border: rgba(0, 0, 0, 0.08);
-  --glass-hover: rgba(0, 0, 0, 0.06);
-  --text-primary: rgba(10, 10, 15, 0.95);
-  --text-secondary: rgba(10, 10, 15, 0.65);
-  --text-muted: rgba(10, 10, 15, 0.35);
+html.light {
+  color-scheme: light;
+  --void: #F0EEFF;
+  --void-50: #E8E4FF;
+  --void-100: #DDD8F5;
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(100, 100, 160, 0.18);
+  --glass-hover: rgba(255, 255, 255, 0.70);
+  --text-primary: rgba(10, 10, 30, 0.95);
+  --text-secondary: rgba(10, 10, 30, 0.65);
+  --text-muted: rgba(10, 10, 30, 0.35);
 }
+
+/* ── Light mode: fix glass-strong (hardcoded, can't use vars without this) ── */
+html.light .glass-strong {
+  background: rgba(255, 255, 255, 0.65) !important;
+  border-color: rgba(100, 100, 160, 0.20) !important;
+}
+
+html.light .glass {
+  background: var(--glass-bg) !important;
+  border-color: var(--glass-border) !important;
+}
+
+html.light .glass-hover:hover {
+  background: var(--glass-hover) !important;
+  border-color: rgba(100, 100, 160, 0.28) !important;
+}
+
+/* ── Light mode: flip text-white variants to dark equivalents ── */
+html.light .text-white                  { color: rgba(10,10,30,0.95) !important; }
+html.light [class~="text-white/90"]     { color: rgba(10,10,30,0.90) !important; }
+html.light [class~="text-white/80"]     { color: rgba(10,10,30,0.80) !important; }
+html.light [class~="text-white/70"]     { color: rgba(10,10,30,0.70) !important; }
+html.light [class~="text-white/60"]     { color: rgba(10,10,30,0.60) !important; }
+html.light [class~="text-white/50"]     { color: rgba(10,10,30,0.50) !important; }
+html.light [class~="text-white/40"]     { color: rgba(10,10,30,0.40) !important; }
+html.light [class~="text-white/35"]     { color: rgba(10,10,30,0.35) !important; }
+html.light [class~="text-white/30"]     { color: rgba(10,10,30,0.30) !important; }
+html.light [class~="text-white/25"]     { color: rgba(10,10,30,0.25) !important; }
+html.light [class~="text-white/20"]     { color: rgba(10,10,30,0.20) !important; }
+
+/* ── Light mode: placeholders ── */
+html.light [class~="placeholder-white/30"]::placeholder { color: rgba(10,10,30,0.35) !important; }
+
+/* ── Light mode: keep aurora-text gradient (it looks good on both) ── */
+html.light .aurora-text {
+  background: linear-gradient(135deg, #6D28D9, #DB2777, #0891B2);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Light mode: input fields ── */
+html.light .input-glass {
+  color: rgba(10,10,30,0.95) !important;
+  background: rgba(255,255,255,0.70) !important;
+  border-color: rgba(100,100,160,0.25) !important;
+}
+html.light .input-glass::placeholder { color: rgba(10,10,30,0.35) !important; }
+
+/* ── Light mode: btn-glass text ── */
+html.light .btn-glass {
+  color: rgba(10,10,30,0.80) !important;
+  border-color: rgba(100,100,160,0.25) !important;
+}
+html.light .btn-glass:hover { color: rgba(10,10,30,0.95) !important; }
+
+/* ── Light mode: scrollbar ── */
+html.light ::-webkit-scrollbar-thumb { background: rgba(109,40,217,0.25); }
+html.light ::-webkit-scrollbar-thumb:hover { background: rgba(109,40,217,0.45); }
+
+/* ── Light mode: shimmer base ── */
+html.light .shimmer-base {
+  background: linear-gradient(
+    90deg,
+    rgba(0,0,0,0.03) 0%,
+    rgba(0,0,0,0.07) 50%,
+    rgba(0,0,0,0.03) 100%
+  ) !important;
+}
+
+/* ── Light mode: divide lines ── */
+html.light .divide-glass > * + * { border-color: rgba(100,100,160,0.15) !important; }
+html.light .border-glass { border-color: rgba(100,100,160,0.18) !important; }
+
+/* ── Light mode: @apply-compiled semantic classes (not caught by attr selectors) ── */
+html.light .nav-link         { color: rgba(10,10,30,0.65) !important; }
+html.light .nav-link:hover   { color: rgba(10,10,30,0.95) !important; background: rgba(10,10,30,0.06) !important; }
+html.light .nav-link-active  { color: rgba(10,10,30,0.95) !important; background: rgba(10,10,30,0.07) !important; }
+html.light .mobile-nav-link  { color: rgba(10,10,30,0.70) !important; }
+html.light .mobile-nav-link:hover { color: rgba(10,10,30,0.95) !important; background: rgba(10,10,30,0.06) !important; }
+
+/* ── Light mode: table/list items hover ── */
+html.light [class~="hover:bg-white/[0.02]"]:hover { background: rgba(10,10,30,0.03) !important; }
+html.light [class~="hover:bg-white/[0.06]"]:hover { background: rgba(10,10,30,0.06) !important; }
+html.light [class~="hover:bg-white/[0.08]"]:hover { background: rgba(10,10,30,0.07) !important; }
+
+/* ── Light mode: heading text (sometimes not white class but inherits) ── */
+html.light h1, html.light h2, html.light h3,
+html.light h4, html.light h5, html.light h6 { color: rgba(10,10,30,0.92); }
+
+/* ── Light mode: Tailwind bg-white opacity utility classes ── */
+html.light [class~="bg-white/\[0\.02\]"]    { background: rgba(10,10,30,0.02) !important; }
+html.light [class~="bg-white/\[0\.04\]"]    { background: rgba(10,10,30,0.04) !important; }
+html.light [class~="bg-white/\[0\.06\]"]    { background: rgba(10,10,30,0.05) !important; }
+html.light [class~="bg-white/\[0\.08\]"]    { background: rgba(10,10,30,0.06) !important; }
+html.light [class~="bg-white/10"]           { background: rgba(10,10,30,0.07) !important; }
+html.light [class~="bg-white/20"]           { background: rgba(10,10,30,0.10) !important; }
+
+/* ── Light mode: border-white opacity classes ── */
+html.light [class~="border-white/10"]       { border-color: rgba(10,10,30,0.10) !important; }
+html.light [class~="border-white/15"]       { border-color: rgba(10,10,30,0.13) !important; }
+html.light [class~="border-white/20"]       { border-color: rgba(10,10,30,0.16) !important; }
+
+/* ── Light mode: inline rgba(255,255,255,...) backgrounds (progress tracks, skeletons) ── */
+html.light [style*="background:rgba(255,255,255,0.04)"],
+html.light [style*="background: rgba(255,255,255,0.04)"] {
+  background: rgba(10,10,30,0.05) !important;
+}
+html.light [style*="background:rgba(255,255,255,0.06)"],
+html.light [style*="background: rgba(255,255,255,0.06)"] {
+  background: rgba(10,10,30,0.07) !important;
+}
+html.light [style*="background:rgba(255,255,255,0.08)"],
+html.light [style*="background: rgba(255,255,255,0.08)"] {
+  background: rgba(10,10,30,0.08) !important;
+}
+
+/* ── Light mode: kbd elements (keyboard shortcut keys) ── */
+html.light kbd {
+  color: rgba(10,10,30,0.70) !important;
+  border-color: rgba(10,10,30,0.15) !important;
+}
+
+/* ── Light mode: select/dropdown elements ── */
+html.light select {
+  color: rgba(10,10,30,0.80) !important;
+  background: rgba(255,255,255,0.70) !important;
+  border-color: rgba(10,10,30,0.15) !important;
+}
+
+/* ── Light mode: black/dark overlays stay dark (modal backdrops - intentional) ── */
+/* bg-black/50, bg-black/60 — intentionally kept dark for modal UX */
 
 /* ─── Base Reset ─── */
 *, *::before, *::after {

@@ -11,6 +11,7 @@ import com.recruitment.common.exception.AppException;
 import com.recruitment.jobs.dto.JobOfferRequest;
 import com.recruitment.jobs.dto.JobOfferResponse;
 import com.recruitment.jobs.entity.JobOffer;
+import com.recruitment.applications.repository.ApplicationRepository;
 import com.recruitment.jobs.repository.JobOfferRepository;
 import com.recruitment.jobs.repository.JobOfferSpecification;
 import com.recruitment.users.entity.Company;
@@ -34,11 +35,14 @@ public class JobOfferService {
     private final JobOfferRepository jobOfferRepository;
     private final RecruiterProfileRepository recruiterProfileRepository;
     private final CompanyRepository companyRepository;
+    private final ApplicationRepository applicationRepository;
 
     public JobOfferResponse createJobOffer(User user, JobOfferRequest request) {
         RecruiterProfile recruiter = recruiterProfileRepository.findByUserId(user.getId())
                 .orElseThrow(() -> new AppException(HttpStatus.NOT_FOUND, "Recruiter profile not found"));
-        Company company = findCompanyOrThrow(request.companyId());
+        Company company = request.companyId() != null
+                ? findCompanyOrThrow(request.companyId())
+                : recruiter.getCompany();
 
         JobOffer offer = JobOffer.create(
                 recruiter,
@@ -63,7 +67,8 @@ public class JobOfferService {
 
     @Transactional(readOnly = true)
     public JobOfferResponse getJobOffer(UUID id) {
-        return JobOfferResponse.from(findOfferOrThrow(id));
+        JobOffer offer = findOfferOrThrow(id);
+        return JobOfferResponse.from(offer, applicationRepository.countByJobOfferId(offer.getId()));
     }
 
     @Transactional(readOnly = true)
@@ -95,7 +100,7 @@ public class JobOfferService {
                                 salaryMin
                         ),
                         pageable
-                ).map(JobOfferResponse::from)
+                ).map(offer -> JobOfferResponse.from(offer, applicationRepository.countByJobOfferId(offer.getId())))
         );
     }
 
@@ -103,7 +108,7 @@ public class JobOfferService {
         JobOffer offer = findOfferOrThrow(id);
         validateOwnership(user, offer);
 
-        if (!offer.getCompany().getId().equals(request.companyId())) {
+        if (request.companyId() != null && !offer.getCompany().getId().equals(request.companyId())) {
             offer.changeCompany(findCompanyOrThrow(request.companyId()));
         }
 
@@ -123,7 +128,8 @@ public class JobOfferService {
                 request.closesAt()
         );
 
-        return JobOfferResponse.from(jobOfferRepository.save(offer));
+        JobOffer saved = jobOfferRepository.save(offer);
+        return JobOfferResponse.from(saved, applicationRepository.countByJobOfferId(saved.getId()));
     }
 
     public void deleteJobOffer(UUID id, User user) {
@@ -144,7 +150,8 @@ public class JobOfferService {
             throw new AppException(HttpStatus.BAD_REQUEST, "Unsupported status transition");
         }
 
-        return JobOfferResponse.from(jobOfferRepository.save(offer));
+        JobOffer saved = jobOfferRepository.save(offer);
+        return JobOfferResponse.from(saved, applicationRepository.countByJobOfferId(saved.getId()));
     }
 
     @Transactional(readOnly = true)

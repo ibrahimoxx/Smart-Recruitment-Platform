@@ -15,6 +15,8 @@ public interface ApplicationRepository extends JpaRepository<Application, UUID> 
 
     boolean existsByCandidateIdAndJobOfferId(UUID candidateId, UUID jobOfferId);
 
+    long countByJobOfferId(UUID jobOfferId);
+
     Page<Application> findByCandidateUserId(UUID userId, Pageable pageable);
 
     @Query("SELECT a FROM Application a WHERE a.jobOffer.recruiter.user.id = :recruiterId")

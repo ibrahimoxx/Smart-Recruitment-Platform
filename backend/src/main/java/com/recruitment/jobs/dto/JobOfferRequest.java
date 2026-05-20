@@ -23,6 +23,6 @@ public record JobOfferRequest(
         @NotNull ContractType contractType,
         @NotNull ExperienceLevel experienceLevel,
         Instant closesAt,
-        @NotNull UUID companyId
+        UUID companyId
 ) {
 }
